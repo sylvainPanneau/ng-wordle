@@ -32,13 +32,13 @@
             </button>
         </div>
         <div class="letter-row last-row">
-            <button class="letter-keyboard">
+            <button class="letter-keyboard" (click)="onClick('Enter')">
                 Enter
             </button>
             <button class="letter-keyboard" *ngFor="let letter of row3" (click)="onClick(letter)">
                 {{letter}}
             </button>
-            <button class="letter-keyboard">
+            <button class="letter-keyboard" (click)="onClick('backspace')">
                 ⌫
             </button>
         </div>

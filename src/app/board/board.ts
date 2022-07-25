@@ -31,13 +31,10 @@ export class BoardComponent implements OnInit {
       });
     });
     if (event.key === "Backspace" && !this.isEmpty()) {
-      this.guessService.deleteLetter(this.guessService.getCurrentGuessId());
+      this.backspace(this.guessService.getCurrentGuessId());
     }
     if (event.key === "Enter" && this.isFull() && Data.includes(guess)) {
-      this.guessService.updateColor(this.guessService.getCurrentGuessId());
-      this.guessService.submitGuess(this.guessService.getCurrentGuessId());
-      console.log("Submitted guess");
-      return;
+      this.submit(this.guessService.getCurrentGuessId());
     }
     if (this.row1.includes(event.key.toUpperCase()) || this.row2.includes(event.key.toUpperCase()) || this.row3.includes(event.key.toUpperCase())) {
       this.selectedLetter = event.key.toUpperCase();
@@ -46,8 +43,26 @@ export class BoardComponent implements OnInit {
   }
 
   onClick(key: string) {
-    this.selectedLetter = key;
-    this.addLetterCurrentGuess();
+    this.selectedLetter = key.toUpperCase();
+    if (key === "backspace" && !this.isEmpty()) {
+      this.backspace(this.guessService.getCurrentGuessId());
+    }
+    else if (key === "Enter" && this.isFull() && Data.includes(this.selectedLetter)) {
+      this.submit(this.guessService.getCurrentGuessId());
+    }
+    else if (this.row1.includes(key.toUpperCase()) || this.row2.includes(key.toUpperCase()) || this.row3.includes(key.toUpperCase())) {
+      this.addLetterCurrentGuess();
+    }
+  }
+
+  submit(id: number): void {
+    this.guessService.updateColor(this.guessService.getCurrentGuessId());
+    this.guessService.submitGuess(this.guessService.getCurrentGuessId());
+    console.log("Submitted guess");
+  }
+
+  backspace(id: number): void {
+    this.guessService.deleteLetter(this.guessService.getCurrentGuessId());
   }
 
   addLetterCurrentGuess(): Observable<Guess> {
