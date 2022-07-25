@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Guess } from './guess';
 import { GUESSES } from './guesses-data';
 import { Observable, of } from 'rxjs';
-import { pipe } from 'rxjs';
 import { Word } from './word';
 const WORD_LENGTH = 5;
 
@@ -12,11 +11,6 @@ const WORD_LENGTH = 5;
   providedIn: 'root'
 })
 export class GuessesServiceService {
-
-  // put the guess in a separeted file and read it in this service with rxjs
-  // Also, create a guess interface to structure the information a bit better.
-  // Also, don't store the information in this service, but in the same above file.
-  // The service will only be used to call methods that edit the information.
 
   constructor() { }
 

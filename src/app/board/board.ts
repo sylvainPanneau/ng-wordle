@@ -1,17 +1,15 @@
-import { Component, Host, HostListener, Input, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { pipe, catchError } from 'rxjs';
 import { GuessesServiceService } from '../guesses-service.service';
 import { Word } from '../word';
 import { Guess } from '../guess';
-const MAX_WORD_LENGTH = 5;
 
 @Component({
-  selector: 'app-keyboard',
-  templateUrl: './keyboard.component.html',
-  styleUrls: ['./keyboard.component.scss']
+  selector: 'app-board',
+  templateUrl: './board.component.html',
+  styleUrls: ['./board.component.scss']
 })
-export class KeyboardComponent implements OnInit {
+export class BoardComponent implements OnInit {
 
   LINE_IDS = [0, 1, 2, 3, 4, 5];
   word!: Word;
@@ -25,11 +23,6 @@ export class KeyboardComponent implements OnInit {
 
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
-    // if(event.key === "Enter" && this.isFull(this.word)){
-    //   this.guessService.submitGuess(this.guessService.getCurrentGuessId());
-    //   console.log("Submitted guess");
-    //   return;
-    // }
     if (event.key === "Enter" && this.isFull()) {
       this.guessService.submitGuess(this.guessService.getCurrentGuessId());
       console.log("Submitted guess");

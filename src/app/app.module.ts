@@ -6,18 +6,12 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LineComponent } from './line/line.component';
-import { LetterComponent } from './letter/letter.component';
-import { KeyboardComponent } from './keyboard/keyboard.component';
-import { BoardComponent } from './board/board.component';
+import { BoardComponent } from './board/board';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LineComponent,
-    LetterComponent,
-    KeyboardComponent,
-    BoardComponent
+    BoardComponent,
   ],
   imports: [
     BrowserModule,
