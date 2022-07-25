@@ -26,13 +26,15 @@ export class BoardComponent implements OnInit {
   handleKeyboardEvent(event: KeyboardEvent) {
     let guess: string = "";
     this.guessService.getCurrentGuess().subscribe(item => {
-      guess = item.word;
+      item.word.forEach(letter => {
+        guess += letter.letter;
+      });
     });
     if (event.key === "Backspace" && !this.isEmpty()) {
       this.guessService.deleteLetter(this.guessService.getCurrentGuessId());
     }
     if (event.key === "Enter" && this.isFull() && Data.includes(guess)) {
-      // this.guessService.updateColor(this.getWord(this.guessService.getCurrentGuessId()));
+      this.guessService.updateColor(this.guessService.getCurrentGuessId());
       this.guessService.submitGuess(this.guessService.getCurrentGuessId());
       console.log("Submitted guess");
       return;
@@ -53,10 +55,15 @@ export class BoardComponent implements OnInit {
   }
 
   getWord(id: number): Word {
-    this.guessService.exportWord(id).subscribe(item => {
-      this.word = item;
+    // this.guessService.exportWord(id).subscribe(item => {
+    //   this.word = item;
+    // });
+    let word!: Word;
+
+    this.guessService.getGuess(id).subscribe(item => {
+      word = item.word;
     });
-    return this.word;
+    return word;
   }
 
   isFull(): boolean {

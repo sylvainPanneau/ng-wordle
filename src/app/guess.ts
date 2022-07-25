@@ -2,6 +2,6 @@ import { Word } from "./word";
 
 export interface Guess {
     id: number;
-    word: string;
+    word: Word;
     submitted: boolean;
 }

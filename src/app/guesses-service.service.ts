@@ -34,7 +34,18 @@ export class GuessesServiceService {
   setGuess(id: number, guess: string): Observable<Guess> {
     const guessToSet = of(GUESSES[id]);
     guessToSet.subscribe(item => {
-      item.word = guess;
+      // item.word = guess;
+      for (let i = 0; i < guess.length; i++) {
+        item.word.push({
+          id: i,
+          letter: guess[i],
+          color: UNKNOWN,
+          correct: false,
+          present: false,
+          incorrect: false,
+          unknown: false
+        });
+      }
     }
     );
     return guessToSet;
@@ -58,8 +69,17 @@ export class GuessesServiceService {
   addLetter(id: number, letter: string): Observable<Guess> {
     const guessToAdd = of(GUESSES[id]);
     guessToAdd.subscribe(item => {
-      if(item.word.length + 1 <= WORD_LENGTH){
-        item.word = item.word.concat(letter);
+      if (item.word.length + 1 <= WORD_LENGTH) {
+        // item.word = item.word.concat(letter);
+        item.word.push({
+          id: item.word.length,
+          letter: letter,
+          color: UNKNOWN,
+          correct: false,
+          present: false,
+          incorrect: false,
+          unknown: true,
+        });
       }
     }
     );
@@ -85,6 +105,26 @@ export class GuessesServiceService {
   }
 
   // UPDATE COLOR METHOD
+  updateColor(id: number): Observable<Guess> {
+    const guessToUpdate = of(GUESSES[id]);
+    guessToUpdate.subscribe(item => {
+      const solution = this.solutionService.getSolution();
+      console.log("solution : ", solution);
+      for (let i = 0; i < item.word.length; i++) {
+        if (item.word[i].letter === solution[i]) {
+          console.log("letter ", item.word[i].letter, " is correct");
+          item.word[i].color = CORRECT;
+        } else if (solution.includes(item.word[i].letter)) {
+          console.log("letter ", item.word[i].letter, " is present");
+          item.word[i].color = PRESENT;
+        } else {
+          console.log("letter ", item.word[i].letter, " is incorrect");
+          item.word[i].color = INCORRECT;
+        }
+      }
+    });
+    return guessToUpdate;
+  }
 
   getGuesses(): Observable<Guess[]> {
     const guesses = of(GUESSES);
@@ -94,41 +134,42 @@ export class GuessesServiceService {
   clearGuess(id: number): Observable<Guess> {
     const guessToClear = of(GUESSES[id]);
     guessToClear.subscribe(item => {
-      item.word = "";
+      // item.word = "";
+      item.word = [];
     }
     );
     return guessToClear;
   }
 
-  exportWord(id: number, correct: boolean = false, present: boolean = false, incorrect: boolean = true, unknown: boolean = false): Observable<Word> {
-    const guess = of(GUESSES[id]);
-    const word: Word = [];
-    guess.subscribe(item => {
-      try {
-        for (let i = 0; i < item.word.length; i++) {
-          word.push({
-            id: i,
-            letter: item.word[i],
-            color: UNKNOWN,
-            correct: false,
-            present: false,
-            incorrect: false,
-            unknown: false
-          });
-        }
-      } catch (error) {
-        console.log(error);
-        word.push({
-          id: 0,
-          letter: "A",
-          color: UNKNOWN,
-          correct: false,
-          present: false,
-          incorrect: false,
-          unknown: true,
-        });
-      }
-    });
-    return of(word);
-  }
+  // exportWord(id: number): Observable<Word> {
+  //   const guess = of(GUESSES[id]);
+  //   const word: Word = [];
+  //   guess.subscribe(item => {
+  //     try {
+  //       for (let i = 0; i < item.word.length; i++) {
+  //         word.push({
+  //           id: i,
+  //           letter: item.word[i],
+  //           color: UNKNOWN,
+  //           correct: false,
+  //           present: false,
+  //           incorrect: false,
+  //           unknown: false
+  //         });
+  //       }
+  //     } catch (error) {
+  //       console.log(error);
+  //       word.push({
+  //         id: 0,
+  //         letter: "A",
+  //         color: UNKNOWN,
+  //         correct: false,
+  //         present: false,
+  //         incorrect: false,
+  //         unknown: true,
+  //       });
+  //     }
+  //   });
+  //   return of(word);
+  // }
 }

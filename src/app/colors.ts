@@ -1,5 +1,5 @@
 // export variables CORRECT, INCORRECT, PRESENT that contain a string representing a color
-export const CORRECT = "green";
-export const INCORRECT = "red";
-export const PRESENT = "blue";
-export const UNKNOWN = "lightgray";
+export const CORRECT = "#3eaa42";
+export const INCORRECT = "#3a3a3c";
+export const PRESENT = "#cd8729";
+export const UNKNOWN = "#636363";
