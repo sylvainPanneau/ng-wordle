@@ -1,8 +1,9 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { COMPILER_OPTIONS, Component, HostListener, OnInit } from '@angular/core';
+import { isEmpty, Observable } from 'rxjs';
 import { GuessesServiceService } from '../guesses-service.service';
 import { Word } from '../word';
 import { Guess } from '../guess';
+import Data from '../../../data/words.json';
 
 @Component({
   selector: 'app-board',
@@ -21,14 +22,22 @@ export class BoardComponent implements OnInit {
 
   constructor(private guessService: GuessesServiceService) { }
 
-  @HostListener('document:keypress', ['$event'])
+  @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
-    if (event.key === "Enter" && this.isFull()) {
+    let guess: string = "";
+    this.guessService.getCurrentGuess().subscribe(item => {
+      guess = item.word;
+    });
+    if(event.key === "Backspace" && !this.isEmpty()) {
+      console.log("backspace");
+      this.guessService.deleteLetter(this.guessService.getCurrentGuessId());
+    }
+    if (event.key === "Enter" && this.isFull() && Data.includes(guess)) {
       this.guessService.submitGuess(this.guessService.getCurrentGuessId());
       console.log("Submitted guess");
       return;
     }
-    if (event.key !== "Enter" && event.key !== "Backspace") {
+    if (this.row1.includes(event.key.toUpperCase()) || this.row2.includes(event.key.toUpperCase()) || this.row3.includes(event.key.toUpperCase())) {
       this.selectedLetter = event.key.toUpperCase();
       this.addLetterCurrentGuess();
     }
@@ -52,6 +61,10 @@ export class BoardComponent implements OnInit {
 
   isFull(): boolean {
     return this.guessService.isCurrentGuessFull();
+  }
+
+  isEmpty(): boolean {
+    return this.guessService.isCurrentGuessEmpty();
   }
 
   getLetter(wordId: number, index: number): string {

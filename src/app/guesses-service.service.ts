@@ -43,6 +43,12 @@ export class GuessesServiceService {
     return currentGuess.word.length === WORD_LENGTH;
   }
 
+  isCurrentGuessEmpty(): boolean {
+    const currentGuess = GUESSES.find(item => !item.submitted)!;
+    console.log("empty ? : ", currentGuess.word.length === 0);
+    return currentGuess.word.length === 0;
+  }
+
   addLetter(id: number, letter: string): Observable<Guess> {
     const guessToAdd = of(GUESSES[id]);
     guessToAdd.subscribe(item => {
@@ -59,8 +65,7 @@ export class GuessesServiceService {
     const guessToDelete = of(GUESSES[id]);
     guessToDelete.subscribe(item => {
       item.word = item.word.slice(0, -1);
-    }
-    );
+    });
     return guessToDelete;
   }
 
