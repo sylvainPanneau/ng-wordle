@@ -55,9 +55,6 @@ export class BoardComponent implements OnInit {
   }
 
   getWord(id: number): Word {
-    // this.guessService.exportWord(id).subscribe(item => {
-    //   this.word = item;
-    // });
     let word!: Word;
 
     this.guessService.getGuess(id).subscribe(item => {

@@ -34,7 +34,6 @@ export class GuessesServiceService {
   setGuess(id: number, guess: string): Observable<Guess> {
     const guessToSet = of(GUESSES[id]);
     guessToSet.subscribe(item => {
-      // item.word = guess;
       for (let i = 0; i < guess.length; i++) {
         item.word.push({
           id: i,
@@ -70,7 +69,6 @@ export class GuessesServiceService {
     const guessToAdd = of(GUESSES[id]);
     guessToAdd.subscribe(item => {
       if (item.word.length + 1 <= WORD_LENGTH) {
-        // item.word = item.word.concat(letter);
         item.word.push({
           id: item.word.length,
           letter: letter,
@@ -104,7 +102,6 @@ export class GuessesServiceService {
     return guessToSubmit;
   }
 
-  // UPDATE COLOR METHOD
   updateColor(id: number): Observable<Guess> {
     const guessToUpdate = of(GUESSES[id]);
     guessToUpdate.subscribe(item => {
@@ -134,42 +131,10 @@ export class GuessesServiceService {
   clearGuess(id: number): Observable<Guess> {
     const guessToClear = of(GUESSES[id]);
     guessToClear.subscribe(item => {
-      // item.word = "";
       item.word = [];
     }
     );
     return guessToClear;
   }
 
-  // exportWord(id: number): Observable<Word> {
-  //   const guess = of(GUESSES[id]);
-  //   const word: Word = [];
-  //   guess.subscribe(item => {
-  //     try {
-  //       for (let i = 0; i < item.word.length; i++) {
-  //         word.push({
-  //           id: i,
-  //           letter: item.word[i],
-  //           color: UNKNOWN,
-  //           correct: false,
-  //           present: false,
-  //           incorrect: false,
-  //           unknown: false
-  //         });
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //       word.push({
-  //         id: 0,
-  //         letter: "A",
-  //         color: UNKNOWN,
-  //         correct: false,
-  //         present: false,
-  //         incorrect: false,
-  //         unknown: true,
-  //       });
-  //     }
-  //   });
-  //   return of(word);
-  // }
 }
