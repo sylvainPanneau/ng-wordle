@@ -3,6 +3,8 @@ import { Guess } from './guess';
 import { GUESSES } from './guesses-data';
 import { Observable, of } from 'rxjs';
 import { Word } from './word';
+import { CORRECT, PRESENT, INCORRECT, UNKNOWN } from './colors';
+import { SolutionServiceService } from './solution-service.service';
 const WORD_LENGTH = 5;
 
 
@@ -12,7 +14,7 @@ const WORD_LENGTH = 5;
 })
 export class GuessesServiceService {
 
-  constructor() { }
+  constructor(private solutionService: SolutionServiceService) { }
 
   getGuess(id: number): Observable<Guess> {
     const guess = of(GUESSES[id]);
@@ -49,6 +51,10 @@ export class GuessesServiceService {
     return currentGuess.word.length === 0;
   }
 
+  isWordSubmitted(id: number): boolean {
+    return GUESSES[id].submitted;
+  }
+
   addLetter(id: number, letter: string): Observable<Guess> {
     const guessToAdd = of(GUESSES[id]);
     guessToAdd.subscribe(item => {
@@ -78,6 +84,8 @@ export class GuessesServiceService {
     return guessToSubmit;
   }
 
+  // UPDATE COLOR METHOD
+
   getGuesses(): Observable<Guess[]> {
     const guesses = of(GUESSES);
     return guesses;
@@ -92,7 +100,7 @@ export class GuessesServiceService {
     return guessToClear;
   }
 
-  exportWord(id: number): Observable<Word> {
+  exportWord(id: number, correct: boolean = false, present: boolean = false, incorrect: boolean = true, unknown: boolean = false): Observable<Word> {
     const guess = of(GUESSES[id]);
     const word: Word = [];
     guess.subscribe(item => {
@@ -100,14 +108,24 @@ export class GuessesServiceService {
         for (let i = 0; i < item.word.length; i++) {
           word.push({
             id: i,
-            letter: item.word[i]
+            letter: item.word[i],
+            color: UNKNOWN,
+            correct: false,
+            present: false,
+            incorrect: false,
+            unknown: false
           });
         }
       } catch (error) {
         console.log(error);
         word.push({
           id: 0,
-          letter: "A"
+          letter: "A",
+          color: UNKNOWN,
+          correct: false,
+          present: false,
+          incorrect: false,
+          unknown: true,
         });
       }
     });

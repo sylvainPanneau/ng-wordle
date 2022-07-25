@@ -1,5 +1,5 @@
-import { COMPILER_OPTIONS, Component, HostListener, OnInit } from '@angular/core';
-import { isEmpty, Observable } from 'rxjs';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { GuessesServiceService } from '../guesses-service.service';
 import { Word } from '../word';
 import { Guess } from '../guess';
@@ -28,11 +28,11 @@ export class BoardComponent implements OnInit {
     this.guessService.getCurrentGuess().subscribe(item => {
       guess = item.word;
     });
-    if(event.key === "Backspace" && !this.isEmpty()) {
-      console.log("backspace");
+    if (event.key === "Backspace" && !this.isEmpty()) {
       this.guessService.deleteLetter(this.guessService.getCurrentGuessId());
     }
     if (event.key === "Enter" && this.isFull() && Data.includes(guess)) {
+      // this.guessService.updateColor(this.getWord(this.guessService.getCurrentGuessId()));
       this.guessService.submitGuess(this.guessService.getCurrentGuessId());
       console.log("Submitted guess");
       return;
@@ -75,6 +75,18 @@ export class BoardComponent implements OnInit {
       letter = "";
     }
     return letter;
+  }
+
+  getColor(wordId: number, index: number): string {
+    let color = "";
+    try {
+      if (this.guessService.isWordSubmitted(wordId)) {
+        color = this.getWord(wordId)[index].color;
+      }
+    } catch (e) {
+      color = "";
+    }
+    return color;
   }
 
   onKeyUp(event: KeyboardEvent) {
