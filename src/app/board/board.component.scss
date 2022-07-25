@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     width: 100%;
     height: 100%;
 }
@@ -11,8 +11,22 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 100%;
+    gap: 0.1em;
+}
+
+.last-row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     justify-content: center;
-    margin-top: 1em;
+}
+
+// select first child of within .last-row
+.last-row > *:first-child, .last-row > *:last-child {
+    width: 25%;
 }
 
 .letter-keyboard{
@@ -21,15 +35,12 @@
     align-items: center;
     justify-content: center;
     border: 1px solid black;
-    border-radius: 5px;
-    margin-left: 0.2em;
-    padding-top: 1.5em;
-    padding-bottom: 1.3em;
-    padding-left: 1.1em;
-    padding-right: 1.1em;
-    font-size: 1.1em;
+    border-radius: 8px;
+    font-size: 1.3em;
     font-weight: bold;
     background-color: #636363;
+    width: 2.5em;
+    height: 3.5em;
 }
 
 .line{
@@ -37,8 +48,14 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    padding: 0.5em;
-    // border-style: solid;
+}
+
+.lines-holder{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.2em;
 }
 
 .letter-line{
@@ -50,9 +67,16 @@
     font-weight: bold;
     padding: 0.7em;
     margin: 0.1em;
-    border-radius: 5px;
+    border-radius: 8px;
     border-style: solid;
     width: 0.5em;
     height: 0.5em;
     border: 3px solid #2f2f2f;
+}
+
+.keyboard{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
 }
