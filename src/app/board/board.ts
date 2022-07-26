@@ -4,6 +4,7 @@ import { GuessesServiceService } from '../guesses-service.service';
 import { Word } from '../word';
 import { Guess } from '../guess';
 import Data from '../../../data/words.json';
+import { CORRECT, INCORRECT, PRESENT, UNKNOWN } from '../colors';
 
 @Component({
   selector: 'app-board',
@@ -94,6 +95,50 @@ export class BoardComponent implements OnInit {
       letter = "";
     }
     return letter;
+  }
+
+  canFlip(wordId: number, index: number): boolean {
+    return this.guessService.isWordSubmitted(wordId);
+  }
+
+  isCorrect(wordId: number, index: number): boolean {
+    let res: boolean = false;
+    try{
+      res = this.getWord(wordId)[index].color === CORRECT && this.guessService.isWordSubmitted(wordId);
+    } catch (e) {
+      res = false;
+    }
+    return res;
+  }
+
+  isIncorrect(wordId: number, index: number): boolean {
+    let res: boolean = false;
+    try{
+      res = this.getWord(wordId)[index].color === INCORRECT && this.guessService.isWordSubmitted(wordId);
+    } catch (e) {
+      res = false;
+    }
+    return res;
+  }
+
+  isPresent(wordId: number, index: number): boolean {
+    let res: boolean = false;
+    try{
+      res = this.getWord(wordId)[index].color === PRESENT && this.guessService.isWordSubmitted(wordId);
+    } catch (e) {
+      res = false;
+    }
+    return res;
+  }
+
+  isUnknown(wordId: number, index: number): boolean {
+    let res: boolean = false;
+    try{
+      res = this.getWord(wordId)[index].color === UNKNOWN && this.guessService.isWordSubmitted(wordId);
+    } catch (e) {
+      res = false;
+    }
+    return res;
   }
 
   getColor(wordId: number, index: number): string {

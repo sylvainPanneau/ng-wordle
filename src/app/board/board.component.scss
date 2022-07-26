@@ -72,6 +72,85 @@
     width: 0.5em;
     height: 0.5em;
     border: 3px solid #2f2f2f;
+    perspective: 1000px;
+}
+
+.flip-letter-1{
+    transform: rotateX(180deg);
+    transition: transform 0.5s;
+}
+
+.flip-text-1{
+    transform: rotateX(180deg);
+    transition: transform 0.5s;
+}
+
+.flip-letter-2{
+    transform: rotateX(180deg);
+    transition: transform 0.5s;
+    transition-delay: 250ms;
+}
+
+.flip-text-2{
+    transform: rotateX(180deg);
+    transition: transform 0.5s;
+    transition-delay: 250ms;
+}
+
+.flip-letter-3{
+    transform: rotateX(180deg);
+    transition: transform 0.5s;
+    transition-delay: 500ms;
+}
+
+.flip-text-3{
+    transform: rotateX(180deg);
+    transition: transform 0.5s;
+    transition-delay: 500ms;
+}
+
+.flip-letter-4{
+    transform: rotateX(180deg);
+    transition: transform 0.5s;
+    transition-delay: 750ms;
+}
+
+.flip-text-4{
+    transform: rotateX(180deg);
+    transition: transform 0.5s;
+    transition-delay: 750ms;
+}
+
+.flip-letter-5{
+    transform: rotateX(180deg);
+    transition: transform 0.5s;
+    transition-delay: 1000ms;
+}
+
+.flip-text-5{
+    transform: rotateX(180deg);
+    transition: transform 0.5s;
+    transition-delay: 1000ms;
+}
+
+.correct{
+    background-color: #3eaa42;
+    border: 3px solid #3eaa42;
+}
+
+.incorrect{
+    background-color: #3a3a3c;
+    border: 3px solid #3a3a3c;
+}
+
+.present{
+    background-color: #cd8729;
+    border: 3px solid #cd8729;
+}
+
+.unknown{
+    background-color: #636363;
+    border: 3px solid #636363;
 }
 
 .keyboard{

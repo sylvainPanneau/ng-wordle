@@ -2,20 +2,60 @@
 
     <div class="lines-holder">
         <div class="line" *ngFor="let id of LINE_IDS">
-            <div class="letter-line" [ngStyle]="{'background-color': getColor(id, 0), 'border-color': getColor(id, 0)}">
-                {{getLetter(id, 0)}}
+            <div class="letter-line" [ngClass]="{
+                    'correct': isCorrect(id, 0), 
+                    'incorrect': isIncorrect(id, 0),
+                    'present': isPresent(id, 0), 
+                    'unknown': isUnknown(id, 0),
+                    'flip-letter-1': canFlip(id, 0)
+                }">
+                <div [ngClass]="{'flip-text-1': canFlip(id, 0)}">
+                    {{getLetter(id, 0)}}
+                </div>
             </div>
-            <div class="letter-line" [ngStyle]="{'background-color': getColor(id, 1), 'border-color': getColor(id, 1)}">
-                {{getLetter(id, 1)}}
+            <div class="letter-line" [ngClass]="{
+                    'correct': isCorrect(id, 1),
+                    'incorrect': isIncorrect(id, 1),
+                    'present': isPresent(id, 1),
+                    'unknown': isUnknown(id, 1),
+                    'flip-letter-2': canFlip(id, 1)
+                }">
+                <div [ngClass]="{'flip-text-2': canFlip(id, 1)}">
+                    {{getLetter(id, 1)}}
+                </div>
             </div>
-            <div class="letter-line" [ngStyle]="{'background-color': getColor(id, 2), 'border-color': getColor(id, 2)}">
-                {{getLetter(id, 2)}}
+            <div class="letter-line" [ngClass]="{
+                    'correct': isCorrect(id, 2),
+                    'incorrect': isIncorrect(id, 2),
+                    'present': isPresent(id, 2),
+                    'unknown': isUnknown(id, 2),
+                    'flip-letter-3': canFlip(id, 2)
+                }">
+                <div [ngClass]="{'flip-text-3': canFlip(id, 2)}">
+                    {{getLetter(id, 2)}}
+                </div>
             </div>
-            <div class="letter-line" [ngStyle]="{'background-color': getColor(id, 3), 'border-color': getColor(id, 3)}">
-                {{getLetter(id, 3)}}
+            <div class="letter-line" [ngClass]="{
+                    'correct': isCorrect(id, 3),
+                    'incorrect': isIncorrect(id, 3),
+                    'present': isPresent(id, 3), 
+                    'unknown': isUnknown(id, 3),
+                    'flip-letter-4': canFlip(id, 3)
+                }">
+                <div [ngClass]="{'flip-text-4': canFlip(id, 3)}">
+                    {{getLetter(id, 3)}}
+                </div>
             </div>
-            <div class="letter-line" [ngStyle]="{'background-color': getColor(id, 4), 'border-color': getColor(id, 4)}">
-                {{getLetter(id, 4)}}
+            <div class="letter-line" [ngClass]="{
+                    'correct': isCorrect(id, 4),
+                    'incorrect': isIncorrect(id, 4),
+                    'present': isPresent(id, 4),
+                    'unknown': isUnknown(id, 4 ),
+                    'flip-letter-5': canFlip(id, 4)
+                }">
+                <div [ngClass]="{'flip-text-5': canFlip(id, 4)}">
+                    {{getLetter(id, 4)}}
+                </div>
             </div>
         </div>
     </div>
