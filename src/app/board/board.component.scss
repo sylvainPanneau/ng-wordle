@@ -136,16 +136,19 @@
 .correct-1{
     background-color: #3eaa42;
     border: 3px solid #3eaa42;
+    transition: all 0.5s;
 }
 
 .incorrect-1{
     background-color: #3a3a3c;
     border: 3px solid #3a3a3c;
+    transition: all 0.5s;
 }
 
 .present-1{
     background-color: #cd8729;
     border: 3px solid #cd8729;
+    transition: all 0.5s;
 }
 
 .unknown{
