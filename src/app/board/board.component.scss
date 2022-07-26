@@ -133,17 +133,17 @@
     transition-delay: 1000ms;
 }
 
-.correct{
+.correct-1{
     background-color: #3eaa42;
     border: 3px solid #3eaa42;
 }
 
-.incorrect{
+.incorrect-1{
     background-color: #3a3a3c;
     border: 3px solid #3a3a3c;
 }
 
-.present{
+.present-1{
     background-color: #cd8729;
     border: 3px solid #cd8729;
 }
@@ -151,6 +151,90 @@
 .unknown{
     background-color: #636363;
     border: 3px solid #636363;
+}
+
+.correct-2{
+    background-color: #3eaa42;
+    border: 3px solid #3eaa42;
+    transition: all 0.5s;
+    transition-delay: 250ms;
+}
+
+.incorrect-2{
+    background-color: #3a3a3c;
+    border: 3px solid #3a3a3c;
+    transition: all 0.5s;
+    transition-delay: 250ms;
+}
+
+.present-2{
+    background-color: #cd8729;
+    border: 3px solid #cd8729;
+    transition: all 0.5s;
+    transition-delay: 250ms;
+}
+
+.correct-3{
+    background-color: #3eaa42;
+    border: 3px solid #3eaa42;
+    transition: all 0.5s;
+    transition-delay: 500ms;
+}
+
+.incorrect-3{
+    background-color: #3a3a3c;
+    border: 3px solid #3a3a3c;
+    transition: all 0.5s;
+    transition-delay: 500ms;
+}
+
+.present-3{
+    background-color: #cd8729;
+    border: 3px solid #cd8729;
+    transition: all 0.5s;
+    transition-delay: 500ms;
+}
+
+.correct-4{
+    background-color: #3eaa42;
+    border: 3px solid #3eaa42;
+    transition: all 0.5s;
+    transition-delay: 750ms;
+}
+
+.incorrect-4{
+    background-color: #3a3a3c;
+    border: 3px solid #3a3a3c;
+    transition: all 0.5s;
+    transition-delay: 750ms;
+}
+
+.present-4{
+    background-color: #cd8729;
+    border: 3px solid #cd8729;
+    transition: all 0.5s;
+    transition-delay: 750ms;
+}
+
+.correct-5{
+    background-color: #3eaa42;
+    border: 3px solid #3eaa42;
+    transition: all 0.5s;
+    transition-delay: 1000ms;
+}
+
+.incorrect-5{
+    background-color: #3a3a3c;
+    border: 3px solid #3a3a3c;
+    transition: all 0.5s;
+    transition-delay: 1000ms;
+}
+
+.present-5{
+    background-color: #cd8729;
+    border: 3px solid #cd8729;
+    transition: all 0.5s;
+    transition-delay: 1000ms;
 }
 
 .keyboard{

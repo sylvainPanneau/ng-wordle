@@ -3,9 +3,9 @@
     <div class="lines-holder">
         <div class="line" *ngFor="let id of LINE_IDS">
             <div class="letter-line" [ngClass]="{
-                    'correct': isCorrect(id, 0), 
-                    'incorrect': isIncorrect(id, 0),
-                    'present': isPresent(id, 0), 
+                    'correct-1': isCorrect(id, 0), 
+                    'incorrect-1': isIncorrect(id, 0),
+                    'present-1': isPresent(id, 0), 
                     'unknown': isUnknown(id, 0),
                     'flip-letter-1': canFlip(id, 0)
                 }">
@@ -14,9 +14,9 @@
                 </div>
             </div>
             <div class="letter-line" [ngClass]="{
-                    'correct': isCorrect(id, 1),
-                    'incorrect': isIncorrect(id, 1),
-                    'present': isPresent(id, 1),
+                    'correct-2': isCorrect(id, 1),
+                    'incorrect-2': isIncorrect(id, 1),
+                    'present-2': isPresent(id, 1),
                     'unknown': isUnknown(id, 1),
                     'flip-letter-2': canFlip(id, 1)
                 }">
@@ -25,9 +25,9 @@
                 </div>
             </div>
             <div class="letter-line" [ngClass]="{
-                    'correct': isCorrect(id, 2),
-                    'incorrect': isIncorrect(id, 2),
-                    'present': isPresent(id, 2),
+                    'correct-3': isCorrect(id, 2),
+                    'incorrect-3': isIncorrect(id, 2),
+                    'present-3': isPresent(id, 2),
                     'unknown': isUnknown(id, 2),
                     'flip-letter-3': canFlip(id, 2)
                 }">
@@ -36,9 +36,9 @@
                 </div>
             </div>
             <div class="letter-line" [ngClass]="{
-                    'correct': isCorrect(id, 3),
-                    'incorrect': isIncorrect(id, 3),
-                    'present': isPresent(id, 3), 
+                    'correct-4': isCorrect(id, 3),
+                    'incorrect-4': isIncorrect(id, 3),
+                    'present-4': isPresent(id, 3), 
                     'unknown': isUnknown(id, 3),
                     'flip-letter-4': canFlip(id, 3)
                 }">
@@ -47,9 +47,9 @@
                 </div>
             </div>
             <div class="letter-line" [ngClass]="{
-                    'correct': isCorrect(id, 4),
-                    'incorrect': isIncorrect(id, 4),
-                    'present': isPresent(id, 4),
+                    'correct-5': isCorrect(id, 4),
+                    'incorrect-5': isIncorrect(id, 4),
+                    'present-5': isPresent(id, 4),
                     'unknown': isUnknown(id, 4 ),
                     'flip-letter-5': canFlip(id, 4)
                 }">
