@@ -50,6 +50,11 @@ export class GuessesServiceService {
     return guessToSet;
   }
 
+  allGuessesSubmitted(): Observable<boolean> {
+    const allSubmitted = of(GUESSES.every(item => item.submitted));
+    return allSubmitted;
+  }
+
   isCurrentGuessFull(): boolean {
     const currentGuess = GUESSES.find(item => !item.submitted)!;
     return currentGuess.word.length === WORD_LENGTH;

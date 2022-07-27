@@ -1,5 +1,7 @@
 <div class="main-container">
 
+    <app-end-game [gameWon]="won" [gameOver]="gameOver" [solution]="solution" *ngIf="gameOver || won"></app-end-game>
+
     <div class="lines-holder">
         <div class="line" *ngFor="let id of LINE_IDS">
             <div class="letter-line" [ngClass]="{

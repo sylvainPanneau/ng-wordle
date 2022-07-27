@@ -5,6 +5,7 @@ import { Word } from '../word';
 import { Guess } from '../guess';
 import Data from '../../../data/words.json';
 import { CORRECT, INCORRECT, PRESENT, UNKNOWN } from '../colors';
+import { SolutionServiceService } from '../solution-service.service';
 
 @Component({
   selector: 'app-board',
@@ -16,12 +17,18 @@ export class BoardComponent implements OnInit {
   LINE_IDS = [0, 1, 2, 3, 4, 5];
   word!: Word;
   selectedLetter: string = "";
+  won: boolean = false;
+  gameOver: boolean = false;
+  solution: string = "";
 
   row1: string[] = ["A", 'Z', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P']
   row2: string[] = ["Q", 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M']
   row3: string[] = ["W", 'X', 'C', 'V', 'B', 'N']
 
-  constructor(private guessService: GuessesServiceService) { }
+  constructor(
+    private guessService: GuessesServiceService,
+    private solutionService: SolutionServiceService
+  ) { }
 
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
@@ -35,12 +42,28 @@ export class BoardComponent implements OnInit {
       this.backspace(this.guessService.getCurrentGuessId());
     }
     if (event.key === "Enter" && this.isFull() && Data.includes(guess)) {
+      const id = this.guessService.getCurrentGuessId();
       this.submit(this.guessService.getCurrentGuessId());
+      this.setGameState(id);
     }
     if (this.row1.includes(event.key.toUpperCase()) || this.row2.includes(event.key.toUpperCase()) || this.row3.includes(event.key.toUpperCase())) {
       this.selectedLetter = event.key.toUpperCase();
       this.addLetterCurrentGuess();
     }
+  }
+
+  setGameState(submittedGuessId: number): void {
+    this.guessService.getGuess(submittedGuessId).subscribe(item => {
+      if (item.word.every(letter => letter.color === CORRECT)) {
+        this.won = true;
+        this.gameOver = false;
+      }
+    });
+    this.guessService.allGuessesSubmitted().subscribe(item => {
+      if (item && !this.won) {
+        this.gameOver = true;
+      }
+    });
   }
 
   onClick(key: string) {
@@ -103,7 +126,7 @@ export class BoardComponent implements OnInit {
 
   isCorrect(wordId: number, index: number): boolean {
     let res: boolean = false;
-    try{
+    try {
       res = this.getWord(wordId)[index].color === CORRECT && this.guessService.isWordSubmitted(wordId);
     } catch (e) {
       res = false;
@@ -113,7 +136,7 @@ export class BoardComponent implements OnInit {
 
   isIncorrect(wordId: number, index: number): boolean {
     let res: boolean = false;
-    try{
+    try {
       res = this.getWord(wordId)[index].color === INCORRECT && this.guessService.isWordSubmitted(wordId);
     } catch (e) {
       res = false;
@@ -123,7 +146,7 @@ export class BoardComponent implements OnInit {
 
   isPresent(wordId: number, index: number): boolean {
     let res: boolean = false;
-    try{
+    try {
       res = this.getWord(wordId)[index].color === PRESENT && this.guessService.isWordSubmitted(wordId);
     } catch (e) {
       res = false;
@@ -133,7 +156,7 @@ export class BoardComponent implements OnInit {
 
   isUnknown(wordId: number, index: number): boolean {
     let res: boolean = false;
-    try{
+    try {
       res = this.getWord(wordId)[index].color === UNKNOWN && this.guessService.isWordSubmitted(wordId);
     } catch (e) {
       res = false;
@@ -159,6 +182,7 @@ export class BoardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.solution = this.solutionService.getSolution();
   }
 
 }
