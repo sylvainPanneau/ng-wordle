@@ -39,6 +39,7 @@
     font-size: 1.3em;
     font-weight: bold;
     background-color: #636363;
+    cursor: pointer;
     width: 2.5em;
     height: 3.5em;
 }
@@ -135,18 +136,15 @@
 
 .correct-keyboard{
     background-color: #3eaa42;
-    border: 3px solid #3eaa42;
 }
 
 .incorrect-keyboard{
     background-color: #2c2c2c;
-    border: 3px solid #2c2c2c;
     color: #969696;
 }
 
 .present-keyboard{
     background-color: #cd8729;
-    border: 3px solid #cd8729;
 }
 
 .correct-1{
