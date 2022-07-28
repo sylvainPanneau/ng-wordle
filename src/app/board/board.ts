@@ -72,12 +72,19 @@ export class BoardComponent implements OnInit {
 
   onClick(key: string) {
     this.selectedLetter = key.toUpperCase();
+    let guess: string = "";
+    this.guessService.getCurrentGuess().subscribe(item => {
+      item.word.forEach(letter => {
+        guess += letter.letter;
+      });
+    });
     if (key === "backspace" && !this.isEmpty()) {
       this.backspace(this.guessService.getCurrentGuessId());
     }
-    else if (key === "Enter" && this.isFull() && Data.includes(this.selectedLetter)) {
-      this.submit(this.guessService.getCurrentGuessId());
-      this.setGameState(this.guessService.getCurrentGuessId());
+    else if (key === "Enter" && this.isFull() && Data.includes(guess)) {
+      const id = this.guessService.getCurrentGuessId();
+      this.submit(id);
+      this.setGameState(id);
       this.getAllSubmittedLetters();
     }
     else if (this.row1.includes(key.toUpperCase()) || this.row2.includes(key.toUpperCase()) || this.row3.includes(key.toUpperCase())) {
