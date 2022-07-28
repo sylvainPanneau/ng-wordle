@@ -22,9 +22,11 @@ export class BoardComponent implements OnInit {
   solution: string = "";
   allSubmittedLetters: Letter[] = [];
 
-  row1: string[] = ["A", 'Z', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P']
+  row1: string[] = ["A", 'Z', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P']  
   row2: string[] = ["Q", 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M']
   row3: string[] = ["W", 'X', 'C', 'V', 'B', 'N']
+
+  hasBeenCorrect: string[] = []; // keep track of all keyboard letters that have been marked as correct on the keyboard layout
 
   constructor(
     private guessService: GuessesServiceService,
@@ -179,6 +181,9 @@ export class BoardComponent implements OnInit {
     } catch (e) {
       res = false;
     }
+    if(res) { // if letter is marked as correct on the keyboard
+      this.hasBeenCorrect.push(letter);
+    }
     return res;
   }
 
@@ -200,7 +205,7 @@ export class BoardComponent implements OnInit {
     let res: boolean = false;
     try {
       this.allSubmittedLetters.forEach(item => {
-        if (item.letter === letter && item.color === PRESENT) {
+        if (item.letter === letter && item.color === PRESENT && !this.hasBeenCorrect.includes(letter)) {
           res = true;
         }
       });
