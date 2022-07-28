@@ -1,4 +1,4 @@
-interface Letter {
+export interface Letter {
     id: number;
     letter: string;
     color: string;

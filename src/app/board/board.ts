@@ -1,7 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GuessesServiceService } from '../guesses-service.service';
-import { Word } from '../word';
+import { Letter, Word } from '../word';
 import { Guess } from '../guess';
 import Data from '../../../data/words.json';
 import { CORRECT, INCORRECT, PRESENT, UNKNOWN } from '../colors';
@@ -20,6 +20,7 @@ export class BoardComponent implements OnInit {
   won: boolean = false;
   gameOver: boolean = false;
   solution: string = "";
+  allSubmittedLetters: Letter[] = [];
 
   row1: string[] = ["A", 'Z', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P']
   row2: string[] = ["Q", 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M']
@@ -43,8 +44,9 @@ export class BoardComponent implements OnInit {
     }
     if (event.key === "Enter" && this.isFull() && Data.includes(guess)) {
       const id = this.guessService.getCurrentGuessId();
-      this.submit(this.guessService.getCurrentGuessId());
+      this.submit(id);
       this.setGameState(id);
+      this.getAllSubmittedLetters();
     }
     if (this.row1.includes(event.key.toUpperCase()) || this.row2.includes(event.key.toUpperCase()) || this.row3.includes(event.key.toUpperCase())) {
       this.selectedLetter = event.key.toUpperCase();
@@ -73,6 +75,8 @@ export class BoardComponent implements OnInit {
     }
     else if (key === "Enter" && this.isFull() && Data.includes(this.selectedLetter)) {
       this.submit(this.guessService.getCurrentGuessId());
+      this.setGameState(this.guessService.getCurrentGuessId());
+      this.getAllSubmittedLetters();
     }
     else if (this.row1.includes(key.toUpperCase()) || this.row2.includes(key.toUpperCase()) || this.row3.includes(key.toUpperCase())) {
       this.addLetterCurrentGuess();
@@ -164,6 +168,69 @@ export class BoardComponent implements OnInit {
     return res;
   }
 
+  isCorrectLetter(letter: string): boolean {
+    let res: boolean = false;
+    try {
+      this.allSubmittedLetters.forEach(item => {
+        if (item.letter === letter && item.color === CORRECT) {
+          res = true;
+        }
+      });
+    } catch (e) {
+      res = false;
+    }
+    return res;
+  }
+
+  isIncorrectLetter(letter: string): boolean {
+    let res: boolean = false;
+    try {
+      this.allSubmittedLetters.forEach(item => {
+        if (item.letter === letter && item.color === INCORRECT) {
+          res = true;
+        }
+      });
+    } catch (e) {
+      res = false;
+    }
+    return res;
+  }
+
+  isPresentLetter(letter: string): boolean {
+    let res: boolean = false;
+    try {
+      this.allSubmittedLetters.forEach(item => {
+        if (item.letter === letter && item.color === PRESENT) {
+          res = true;
+        }
+      });
+    } catch (e) {
+      res = false;
+    }
+    return res;
+  }
+
+  isUnknownLetter(letter: string): boolean {
+    let res: boolean = false;
+    try {
+      this.allSubmittedLetters.forEach(item => {
+        if (item.letter === letter && item.color === UNKNOWN) {
+          res = true;
+        }
+      });
+    } catch (e) {
+      res = false;
+    }
+    return res;
+  }
+  
+  getAllSubmittedLetters(): void{
+    this.guessService.getAllSubmittedLetters()
+      .subscribe(item => {
+        this.allSubmittedLetters = item;
+      });
+  }
+
   getColor(wordId: number, index: number): string {
     let color = "";
     try {
@@ -183,6 +250,7 @@ export class BoardComponent implements OnInit {
 
   ngOnInit(): void {
     this.solution = this.solutionService.getSolution();
+    this.getAllSubmittedLetters();
   }
 
 }

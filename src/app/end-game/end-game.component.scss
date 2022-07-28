@@ -1,4 +1,4 @@
-.main-container{
+.main-container {
     position: absolute;
     top: 40%;
     left: 50%;
@@ -11,9 +11,10 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
-.main-container-blur{
+.main-container-blur {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -24,16 +25,49 @@
     opacity: 0.5;
 }
 
-.game-status{
+.game-status {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     font-size: 2em;
     height: 30%;
 }
 
-.solution{
+.game-status-text{
+    text-align: center;
+}
+
+.close-button-wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 90%;
+    padding-top: 1em;
+}
+
+.close-button{
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #3a3a3c;
+    border-bottom: 2px solid #2b2b2b;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.close-button-svg:hover{
+    transform: rotate(90deg);
+    transition: transform .3s;
+}
+
+.close-button-svg{
+    padding: 0.5em;
+    transition: transform .3s;
+}
+
+.solution {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -41,29 +75,29 @@
     height: 70%;
 }
 
-.solution-header{
+.solution-header {
     font-size: 1em;
     font-weight: bold;
     text-align: center;
-    color: hsla(0,0%,100%,.5);
+    color: hsla(0, 0%, 100%, .5);
 }
 
-.solution-body{
+.solution-body {
     display: flex;
     flex-direction: column;
     text-align: center;
     gap: 1em;
 }
 
-.book-icon{
+.book-icon {
     align-self: center;
 }
 
-.see-definition{
+.see-definition {
     text-decoration: none;
 }
 
-.solution-definition{
+.solution-definition {
     display: flex;
     flex-direction: row;
     gap: 0.5em;

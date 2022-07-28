@@ -1,7 +1,5 @@
+<app-end-game [gameWon]="won" [gameOver]="gameOver" [solution]="solution" *ngIf="gameOver || won"></app-end-game>
 <div class="main-container">
-
-    <app-end-game [gameWon]="won" [gameOver]="gameOver" [solution]="solution" *ngIf="gameOver || won"></app-end-game>
-
     <div class="lines-holder">
         <div class="line" *ngFor="let id of LINE_IDS">
             <div class="letter-line" [ngClass]="{
@@ -64,12 +62,22 @@
 
     <div class="keyboard">
         <div class="letter-row">
-            <button class="letter-keyboard" *ngFor="let letter of row1" (click)="onClick(letter)">
+            <button class="letter-keyboard" *ngFor="let letter of row1" (click)="onClick(letter)" [ngClass]="{
+                    'correct-keyboard': isCorrectLetter(letter),
+                    'incorrect-keyboard': isIncorrectLetter(letter),
+                    'present-keyboard': isPresentLetter(letter),
+                    'unknown': isUnknownLetter(letter)
+                }">
                 {{letter}}
             </button>
         </div>
         <div class="letter-row">
-            <button class="letter-keyboard" *ngFor="let letter of row2" (click)="onClick(letter)">
+            <button class="letter-keyboard" *ngFor="let letter of row2" (click)="onClick(letter)" [ngClass]="{
+                'correct-keyboard': isCorrectLetter(letter),
+                'incorrect-keyboard': isIncorrectLetter(letter),
+                'present-keyboard': isPresentLetter(letter),
+                'unknown': isUnknownLetter(letter)
+            }">
                 {{letter}}
             </button>
         </div>
@@ -77,7 +85,12 @@
             <button class="letter-keyboard" (click)="onClick('Enter')">
                 Enter
             </button>
-            <button class="letter-keyboard" *ngFor="let letter of row3" (click)="onClick(letter)">
+            <button class="letter-keyboard" *ngFor="let letter of row3" (click)="onClick(letter)" [ngClass]="{
+                'correct-keyboard': isCorrectLetter(letter),
+                'incorrect-keyboard': isIncorrectLetter(letter),
+                'present-keyboard': isPresentLetter(letter),
+                'unknown': isUnknownLetter(letter)
+            }">
                 {{letter}}
             </button>
             <button class="letter-keyboard" (click)="onClick('backspace')">

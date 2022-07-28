@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Guess } from './guess';
 import { GUESSES } from './guesses-data';
 import { Observable, of } from 'rxjs';
-import { Word } from './word';
+import { Letter } from './word';
 import { CORRECT, PRESENT, INCORRECT, UNKNOWN } from './colors';
 import { SolutionServiceService } from './solution-service.service';
 const WORD_LENGTH = 5;
@@ -29,6 +29,31 @@ export class GuessesServiceService {
 
   getCurrentGuessId(): number {
     return GUESSES.find(item => !item.submitted)!.id;
+  }
+
+  getLastSubmittedGuess(): Observable<Guess> {
+    const lastSubmittedGuess = of(GUESSES[this.getCurrentGuessId() - 1]);
+    return lastSubmittedGuess;
+  }
+
+  getAllSubmittedGuesses(): Observable<Guess[]> {
+    let allGuessesSubmitted: Guess[] = [];
+    this.getGuesses().subscribe(item => {
+      allGuessesSubmitted = item.filter(item => item.submitted);
+    });
+    return of(allGuessesSubmitted);
+  }
+
+  getAllSubmittedLetters(): Observable<Letter[]> {
+    let result: Letter[] = [];
+    this.getAllSubmittedGuesses().subscribe(item => {
+      item.forEach(guess => {
+        guess.word.forEach(letter => {
+          result.push(letter);
+        });
+      });
+    });
+    return of(result);
   }
 
   setGuess(id: number, guess: string): Observable<Guess> {
