@@ -83,7 +83,7 @@ export class BoardComponent implements OnInit {
       this.guessService.getCanShake().subscribe(item => {
         this.canShake = item;
       });
-    }, 1);
+    }, 0.1);
   }
 
   manageShakeOperations(lineId: number): void {
