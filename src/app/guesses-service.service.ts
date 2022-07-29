@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Guess } from './guess';
 import { GUESSES } from './guesses-data';
 import { Observable, of } from 'rxjs';
-import { Letter } from './word';
+import { Letter, Word } from './word';
 import { CORRECT, PRESENT, INCORRECT, UNKNOWN } from './colors';
 import { SolutionServiceService } from './solution-service.service';
 const WORD_LENGTH = 5;
@@ -19,6 +19,53 @@ export class GuessesServiceService {
   getGuess(id: number): Observable<Guess> {
     const guess = of(GUESSES[id]);
     return guess;
+  }
+
+  setTryToSubmit(wordId: number){
+    const guessToSubmit = of(GUESSES[wordId]);
+    guessToSubmit.subscribe(item => {
+      item.triedToBeSubmitted = true;
+    });
+    return guessToSubmit;
+  }
+
+  getCanShake(): Observable<{[key: number]: boolean}> {
+    let canShake: {[key: number]: boolean} = {};
+    this.getGuesses().subscribe(item => {
+      item.forEach(guess => {
+        canShake[guess.id] = guess.canShake;
+      });
+    });
+    return of(canShake);
+  }
+
+  tryToshake(wordId: number): Observable<Guess> {
+    const guessToShake = of(GUESSES[wordId]);
+    let shakeValue: boolean = false;
+    let guess!: Guess;
+    let wordStr: string = "";
+    this.getGuess(wordId).subscribe(item => {
+      guess = item;
+      item.word.forEach(letter => {
+        wordStr += letter.letter;
+      });
+    });
+    if (!guess.triedToBeSubmitted){
+      guessToShake.subscribe(item => {
+        item.canShake = false;
+      });
+      return guessToShake;
+    }    
+    if(wordStr.length !== WORD_LENGTH) {
+      shakeValue = false;
+    }
+    else if(wordStr.length === WORD_LENGTH) {
+      shakeValue = true;
+    }
+    guessToShake.subscribe(item => {
+      item.canShake = shakeValue;
+    });
+    return guessToShake;
   }
 
   getCurrentGuess(): Observable<Guess> {
