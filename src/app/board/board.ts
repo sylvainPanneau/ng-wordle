@@ -21,8 +21,9 @@ export class BoardComponent implements OnInit {
   gameOver: boolean = false;
   solution: string = "";
   allSubmittedLetters: Letter[] = [];
+  canShake: { [key: number]: boolean } = {};
 
-  row1: string[] = ["A", 'Z', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P']  
+  row1: string[] = ["A", 'Z', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P']
   row2: string[] = ["Q", 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M']
   row3: string[] = ["W", 'X', 'C', 'V', 'B', 'N']
 
@@ -43,12 +44,17 @@ export class BoardComponent implements OnInit {
     });
     if (event.key === "Backspace" && !this.isEmpty()) {
       this.backspace(this.guessService.getCurrentGuessId());
+      this.manageShakeOperations(this.guessService.getCurrentGuessId());
     }
     if (event.key === "Enter" && this.isFull() && Data.includes(guess)) {
-      const id = this.guessService.getCurrentGuessId();
+      const id = this.guessService.getCurrentGuessId(); // save id before submitting
       this.submit(id);
       this.setGameState(id);
       this.getAllSubmittedLetters();
+    }
+    else if (event.key === "Enter" && this.isFull() && !Data.includes(guess)) {
+      const id = this.guessService.getCurrentGuessId();
+      this.manageShakeOperations(id);
     }
     if (this.row1.includes(event.key.toUpperCase()) || this.row2.includes(event.key.toUpperCase()) || this.row3.includes(event.key.toUpperCase())) {
       this.selectedLetter = event.key.toUpperCase();
@@ -70,6 +76,22 @@ export class BoardComponent implements OnInit {
     });
   }
 
+  updateCanShake(): void {
+    //forcing the update for the html binding (canShake[id]) in case the line is already marked as shakeable but user submits it again
+    this.canShake = {};
+    setTimeout(() => {
+      this.guessService.getCanShake().subscribe(item => {
+        this.canShake = item;
+      });
+    }, 1);
+  }
+
+  manageShakeOperations(lineId: number): void {
+    this.guessService.setTryToSubmit(lineId);
+    this.guessService.tryToshake(lineId);
+    this.updateCanShake();
+  }
+
   onClick(key: string) {
     this.selectedLetter = key.toUpperCase();
     let guess: string = "";
@@ -80,12 +102,17 @@ export class BoardComponent implements OnInit {
     });
     if (key === "backspace" && !this.isEmpty()) {
       this.backspace(this.guessService.getCurrentGuessId());
+      this.manageShakeOperations(this.guessService.getCurrentGuessId());
     }
     else if (key === "Enter" && this.isFull() && Data.includes(guess)) {
       const id = this.guessService.getCurrentGuessId();
       this.submit(id);
       this.setGameState(id);
       this.getAllSubmittedLetters();
+    }
+    else if (key === "Enter" && this.isFull() && !Data.includes(guess)) {
+      const id = this.guessService.getCurrentGuessId();
+      this.manageShakeOperations(id);
     }
     else if (this.row1.includes(key.toUpperCase()) || this.row2.includes(key.toUpperCase()) || this.row3.includes(key.toUpperCase())) {
       this.addLetterCurrentGuess();
@@ -188,7 +215,7 @@ export class BoardComponent implements OnInit {
     } catch (e) {
       res = false;
     }
-    if(res) { // if letter is marked as correct on the keyboard
+    if (res) { // if letter is marked as correct on the keyboard
       this.hasBeenCorrect.push(letter);
     }
     return res;
@@ -235,8 +262,8 @@ export class BoardComponent implements OnInit {
     }
     return res;
   }
-  
-  getAllSubmittedLetters(): void{
+
+  getAllSubmittedLetters(): void {
     this.guessService.getAllSubmittedLetters()
       .subscribe(item => {
         this.allSubmittedLetters = item;
@@ -263,6 +290,9 @@ export class BoardComponent implements OnInit {
   ngOnInit(): void {
     this.solution = this.solutionService.getSolution();
     this.getAllSubmittedLetters();
+    this.guessService.getCanShake().subscribe(item => {
+      this.canShake = item;
+    });
   }
 
 }

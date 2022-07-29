@@ -2,7 +2,10 @@
 <div class="main-container">
     <div class="lines-holder">
         <div class="line" *ngFor="let id of LINE_IDS">
-            <div class="letter-line" [ngClass]="{
+            <div class="toast-not-in-list fadeinout" *ngIf="canShake[id]">
+                Ce mot n'est pas dans la liste
+            </div>
+            <div [class.animate__headShake]="canShake[id]" class="letter-line animate__animated" [ngClass]="{
                     'correct-1': isCorrect(id, 0), 
                     'incorrect-1': isIncorrect(id, 0),
                     'present-1': isPresent(id, 0), 
@@ -13,7 +16,7 @@
                     {{getLetter(id, 0)}}
                 </div>
             </div>
-            <div class="letter-line" [ngClass]="{
+            <div [class.animate__headShake]="canShake[id]" class="letter-line animate__animated" [ngClass]="{
                     'correct-2': isCorrect(id, 1),
                     'incorrect-2': isIncorrect(id, 1),
                     'present-2': isPresent(id, 1),
@@ -24,7 +27,7 @@
                     {{getLetter(id, 1)}}
                 </div>
             </div>
-            <div class="letter-line" [ngClass]="{
+            <div [class.animate__headShake]="canShake[id]" class="letter-line animate__animated" [ngClass]="{
                     'correct-3': isCorrect(id, 2),
                     'incorrect-3': isIncorrect(id, 2),
                     'present-3': isPresent(id, 2),
@@ -35,7 +38,7 @@
                     {{getLetter(id, 2)}}
                 </div>
             </div>
-            <div class="letter-line" [ngClass]="{
+            <div [class.animate__headShake]="canShake[id]" class="letter-line animate__animated" [ngClass]="{
                     'correct-4': isCorrect(id, 3),
                     'incorrect-4': isIncorrect(id, 3),
                     'present-4': isPresent(id, 3), 
@@ -46,7 +49,7 @@
                     {{getLetter(id, 3)}}
                 </div>
             </div>
-            <div class="letter-line" [ngClass]="{
+            <div [class.animate__headShake]="canShake[id]" class="letter-line animate__animated" [ngClass]="{
                     'correct-5': isCorrect(id, 4),
                     'incorrect-5': isIncorrect(id, 4),
                     'present-5': isPresent(id, 4),

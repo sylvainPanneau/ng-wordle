@@ -5,6 +5,8 @@ export const GUESSES: Guess[] = [
     {
         id: 0,
         submitted: false,
+        canShake: false,
+        triedToBeSubmitted: false,
         word: [
             // {
             //     id: 0,
@@ -56,26 +58,36 @@ export const GUESSES: Guess[] = [
     {
         id: 1,
         submitted: false,
+        canShake: false,
+        triedToBeSubmitted: false,
         word: []
     },
     {
         id: 2,
         submitted: false,
+        canShake: false,
+        triedToBeSubmitted: false,
         word: []
     },
     {
         id: 3,
         submitted: false,
+        canShake: false,
+        triedToBeSubmitted: false,
         word: []
     },
     {
         id: 4,
         submitted: false,
+        canShake: false,
+        triedToBeSubmitted: false,
         word: []
     },
     {
         id: 5,
         submitted: false,
+        canShake: false,
+        triedToBeSubmitted: false,
         word: []
     }
 ];
