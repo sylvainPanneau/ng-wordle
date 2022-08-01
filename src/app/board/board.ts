@@ -56,7 +56,10 @@ export class BoardComponent implements OnInit {
       const id = this.guessService.getCurrentGuessId();
       this.manageShakeOperations(id);
     }
-    if (this.row1.includes(event.key.toUpperCase()) || this.row2.includes(event.key.toUpperCase()) || this.row3.includes(event.key.toUpperCase())) {
+    if ((this.row1.includes(event.key.toUpperCase())
+      || this.row2.includes(event.key.toUpperCase())
+      || this.row3.includes(event.key.toUpperCase())) &&
+      !(this.gameOver || this.won)) {
       this.selectedLetter = event.key.toUpperCase();
       this.addLetterCurrentGuess();
     }
@@ -114,7 +117,10 @@ export class BoardComponent implements OnInit {
       const id = this.guessService.getCurrentGuessId();
       this.manageShakeOperations(id);
     }
-    else if (this.row1.includes(key.toUpperCase()) || this.row2.includes(key.toUpperCase()) || this.row3.includes(key.toUpperCase())) {
+    else if ((this.row1.includes(key.toUpperCase())
+    || this.row2.includes(key.toUpperCase())
+    || this.row3.includes(key.toUpperCase())) &&
+    !(this.gameOver || this.won)) {
       this.addLetterCurrentGuess();
     }
   }
