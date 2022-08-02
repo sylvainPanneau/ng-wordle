@@ -1,5 +1,7 @@
 <div [@openClose]="isOpen ? 'open' : 'closed'">
-    <div class="main-container">
+    <div class="main-container" [ngClass]="{
+        'hand-set-main-container': isScreenHandSet$ | async
+    }">
         <div class="close-button-wrapper">
             <div class="close-button" (click)="toggle()">
                 <svg class="close-button-svg" xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10">
@@ -13,6 +15,7 @@
         </div>
         <div class="game-status">
             <div class="game-status-text">
+                PERDU
                 <div class="game-won" *ngIf="gameWon">Bien joué !</div>
                 <div class="game-over" *ngIf="gameOver">Perdu</div>
             </div>
