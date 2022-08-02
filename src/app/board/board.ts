@@ -1,11 +1,13 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { GuessesServiceService } from '../guesses-service.service';
 import { Letter, Word } from '../word';
 import { Guess } from '../guess';
 import Data from '../../../data/words.json';
 import { CORRECT, INCORRECT, PRESENT, UNKNOWN } from '../colors';
 import { SolutionServiceService } from '../solution-service.service';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-board',
@@ -22,6 +24,7 @@ export class BoardComponent implements OnInit {
   solution: string = "";
   allSubmittedLetters: Letter[] = [];
   canShake: { [key: number]: boolean } = {};
+  isScreenHandSet$?: Observable<boolean>;
 
   row1: string[] = ["A", 'Z', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P']
   row2: string[] = ["Q", 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M']
@@ -31,8 +34,20 @@ export class BoardComponent implements OnInit {
 
   constructor(
     private guessService: GuessesServiceService,
-    private solutionService: SolutionServiceService
+    private solutionService: SolutionServiceService,
+    private breakPointObserver: BreakpointObserver
   ) { }
+
+  ngOnInit(): void {
+    this.solution = this.solutionService.getSolution();
+    this.getAllSubmittedLetters();
+    this.guessService.getCanShake().subscribe(item => {
+      this.canShake = item;
+    });
+    this.isScreenHandSet$ = this.breakPointObserver
+      .observe(Breakpoints.Handset)
+      .pipe(map(({ matches }) => matches));
+  }
 
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
@@ -118,9 +133,9 @@ export class BoardComponent implements OnInit {
       this.manageShakeOperations(id);
     }
     else if ((this.row1.includes(key.toUpperCase())
-    || this.row2.includes(key.toUpperCase())
-    || this.row3.includes(key.toUpperCase())) &&
-    !(this.gameOver || this.won)) {
+      || this.row2.includes(key.toUpperCase())
+      || this.row3.includes(key.toUpperCase())) &&
+      !(this.gameOver || this.won)) {
       this.addLetterCurrentGuess();
     }
   }
@@ -291,14 +306,6 @@ export class BoardComponent implements OnInit {
   onKeyUp(event: KeyboardEvent) {
     this.selectedLetter = event.key;
     this.addLetterCurrentGuess();
-  }
-
-  ngOnInit(): void {
-    this.solution = this.solutionService.getSolution();
-    this.getAllSubmittedLetters();
-    this.guessService.getCanShake().subscribe(item => {
-      this.canShake = item;
-    });
   }
 
 }

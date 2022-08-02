@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { map, Observable } from 'rxjs';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-end-game',
@@ -32,6 +35,7 @@ export class EndGameComponent implements OnInit {
   solution?: string;
 
   isOpen: boolean = false;
+  isScreenHandSet$?: Observable<boolean>;
 
   toggle() {
     this.isOpen = !this.isOpen;
@@ -39,12 +43,15 @@ export class EndGameComponent implements OnInit {
 
   definitionUrl: string = "https://1mot.net/";
 
-  constructor() { }
+  constructor(private breakPointObserver: BreakpointObserver) { }
 
   ngOnInit(): void {
     setTimeout(() => {
       this.isOpen = true;
     }, 1);
+    this.isScreenHandSet$ = this.breakPointObserver
+      .observe(Breakpoints.Handset)
+      .pipe(map(({ matches }) => matches));
   }
 
 }
