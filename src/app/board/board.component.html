@@ -1,8 +1,10 @@
-<app-end-game [gameWon]="won" [gameOver]="gameOver" [solution]="solution" *ngIf="gameOver || won"></app-end-game>
+<app-end-game [gameWon]="won" [gameOver]="gameOver" [solution]="solution"></app-end-game>
 <div class="main-container">
     <div class="lines-holder">
         <div class="line" *ngFor="let id of LINE_IDS" [ngClass]="{
-            'hand-set-font': isScreenHandSet$ | async
+            'small-font': isScreenSmall$ | async,
+            'medium-font': isScreenMedium$ | async,
+            'large-font': isScreenLarge$ | async
         }">
             <div class="toast-not-in-list fadeinout" *ngIf="canShake[id]">
                 Ce mot n'est pas dans la liste
@@ -13,7 +15,7 @@
                     'present-1': isPresent(id, 0), 
                     'unknown': isUnknown(id, 0),
                     'flip-letter-1': canFlip(id, 0),
-                    'hand-set-radius': isScreenHandSet$ | async
+                    'small-radius': isScreenLarge$ || isScreenMedium$ || isScreenSmall$ | async
                 }">
                 <div [ngClass]="{'flip-text-1': canFlip(id, 0)}">
                     {{getLetter(id, 0)}}
@@ -25,7 +27,7 @@
                     'present-2': isPresent(id, 1),
                     'unknown': isUnknown(id, 1),
                     'flip-letter-2': canFlip(id, 1),
-                    'hand-set-radius': isScreenHandSet$ | async
+                    'small-radius': isScreenLarge$ || isScreenMedium$ || isScreenSmall$ | async
                 }">
                 <div [ngClass]="{'flip-text-2': canFlip(id, 1)}">
                     {{getLetter(id, 1)}}
@@ -37,7 +39,7 @@
                     'present-3': isPresent(id, 2),
                     'unknown': isUnknown(id, 2),
                     'flip-letter-3': canFlip(id, 2),
-                    'hand-set-radius': isScreenHandSet$ | async
+                    'small-radius': isScreenLarge$ || isScreenMedium$ || isScreenSmall$ | async
                 }">
                 <div [ngClass]="{'flip-text-3': canFlip(id, 2)}">
                     {{getLetter(id, 2)}}
@@ -49,7 +51,7 @@
                     'present-4': isPresent(id, 3), 
                     'unknown': isUnknown(id, 3),
                     'flip-letter-4': canFlip(id, 3),
-                    'hand-set-radius': isScreenHandSet$ | async
+                    'small-radius': isScreenLarge$ || isScreenMedium$ || isScreenSmall$ | async
                 }">
                 <div [ngClass]="{'flip-text-4': canFlip(id, 3)}">
                     {{getLetter(id, 3)}}
@@ -61,7 +63,7 @@
                     'present-5': isPresent(id, 4),
                     'unknown': isUnknown(id, 4 ),
                     'flip-letter-5': canFlip(id, 4),
-                    'hand-set-radius': isScreenHandSet$ | async
+                    'small-radius': isScreenLarge$ || isScreenMedium$ || isScreenSmall$ | async
                 }">
                 <div [ngClass]="{'flip-text-5': canFlip(id, 4)}">
                     {{getLetter(id, 4)}}
@@ -71,7 +73,9 @@
     </div>
 
     <div class="keyboard" [ngClass]="{
-        'hand-set-font': isScreenHandSet$ | async
+        'small-font': isScreenSmall$ | async,
+        'medium-font': isScreenMedium$ | async,
+        'large-font': isScreenLarge$ | async
     }">
         <div class="letter-row">
             <button class="letter-keyboard" *ngFor="let letter of row1" (click)="onClick(letter)" [ngClass]="{
@@ -79,7 +83,7 @@
                     'incorrect-keyboard': isIncorrectLetter(letter),
                     'present-keyboard': isPresentLetter(letter),
                     'unknown': isUnknownLetter(letter),
-                    'hand-set-radius': isScreenHandSet$ | async
+                    'small-radius': isScreenLarge$ || isScreenMedium$ || isScreenSmall$ | async
                 }">
                 {{letter}}
             </button>
@@ -90,14 +94,14 @@
                 'incorrect-keyboard': isIncorrectLetter(letter),
                 'present-keyboard': isPresentLetter(letter),
                 'unknown': isUnknownLetter(letter),
-                'hand-set-radius': isScreenHandSet$ | async
+                'small-radius': isScreenLarge$ || isScreenMedium$ || isScreenSmall$ | async
             }">
                 {{letter}}
             </button>
         </div>
         <div class="letter-row last-row">
             <button class="letter-keyboard" (click)="onClick('Enter')" [ngClass]="{
-                'hand-set-radius': isScreenHandSet$ | async
+                'small-radius': isScreenLarge$ || isScreenMedium$ || isScreenSmall$ | async
             }">
                 Enter
             </button>
@@ -106,12 +110,12 @@
                 'incorrect-keyboard': isIncorrectLetter(letter),
                 'present-keyboard': isPresentLetter(letter),
                 'unknown': isUnknownLetter(letter),
-                'hand-set-radius': isScreenHandSet$ | async
+                'small-radius': isScreenLarge$ || isScreenMedium$ || isScreenSmall$ | async
             }">
                 {{letter}}
             </button>
             <button class="letter-keyboard" (click)="onClick('backspace')" [ngClass]="{
-                'hand-set-radius': isScreenHandSet$ | async
+                'small-radius': isScreenLarge$ || isScreenMedium$ || isScreenSmall$ | async
             }">
                 ⌫
             </button>

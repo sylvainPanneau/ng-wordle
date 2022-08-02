@@ -35,7 +35,9 @@ export class EndGameComponent implements OnInit {
   solution?: string;
 
   isOpen: boolean = false;
-  isScreenHandSet$?: Observable<boolean>;
+  isScreenSmall$?: Observable<boolean>;
+  isScreenMedium$?: Observable<boolean>;
+  isScreenLarge$?: Observable<boolean>;
 
   toggle() {
     this.isOpen = !this.isOpen;
@@ -49,8 +51,14 @@ export class EndGameComponent implements OnInit {
     setTimeout(() => {
       this.isOpen = true;
     }, 1);
-    this.isScreenHandSet$ = this.breakPointObserver
-      .observe(Breakpoints.Handset)
+    this.isScreenSmall$ = this.breakPointObserver
+      .observe(('(max-width: 320px)'))
+      .pipe(map(({ matches }) => matches));
+    this.isScreenMedium$ = this.breakPointObserver
+      .observe(('(max-width: 375px)'))
+      .pipe(map(({ matches }) => matches));
+    this.isScreenLarge$ = this.breakPointObserver
+      .observe(('(max-width: 425px)'))
       .pipe(map(({ matches }) => matches));
   }
 

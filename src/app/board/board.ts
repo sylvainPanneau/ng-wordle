@@ -24,7 +24,9 @@ export class BoardComponent implements OnInit {
   solution: string = "";
   allSubmittedLetters: Letter[] = [];
   canShake: { [key: number]: boolean } = {};
-  isScreenHandSet$?: Observable<boolean>;
+  isScreenSmall$?: Observable<boolean>;
+  isScreenMedium$?: Observable<boolean>;
+  isScreenLarge$?: Observable<boolean>;
 
   row1: string[] = ["A", 'Z', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P']
   row2: string[] = ["Q", 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M']
@@ -44,8 +46,14 @@ export class BoardComponent implements OnInit {
     this.guessService.getCanShake().subscribe(item => {
       this.canShake = item;
     });
-    this.isScreenHandSet$ = this.breakPointObserver
-      .observe(Breakpoints.Handset)
+    this.isScreenSmall$ = this.breakPointObserver
+      .observe(('(max-width: 320px)'))
+      .pipe(map(({ matches }) => matches));
+    this.isScreenMedium$ = this.breakPointObserver
+      .observe(('(max-width: 375px)'))
+      .pipe(map(({ matches }) => matches));
+    this.isScreenLarge$ = this.breakPointObserver
+      .observe(('(max-width: 425px)'))
       .pipe(map(({ matches }) => matches));
   }
 

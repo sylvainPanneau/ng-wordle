@@ -14,12 +14,23 @@
     height: 30%;
 }
 
-.hand-set-main-container {
+// ----- Angular CDK Layout -----
+
+.large-main-container {
     width: 50%;
     height: 30%;
-    font-size: 1.3vh;
+    font-size: 1.7vh;
     border-radius: 5px;
 }
+
+.small-main-container {
+    width: 60%;
+    height: 30%;
+    font-size: 1.5vh;
+    border-radius: 5px;
+}
+
+// ----- Angular CDK Layout -----
 
 .main-container-blur {
     position: absolute;

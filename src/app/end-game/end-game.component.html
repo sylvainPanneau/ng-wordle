@@ -1,6 +1,8 @@
 <div [@openClose]="isOpen ? 'open' : 'closed'">
     <div class="main-container" [ngClass]="{
-        'hand-set-main-container': isScreenHandSet$ | async
+        'small-main-container': isScreenSmall$ | async,
+        'medium-main-container': isScreenMedium$ | async,
+        'large-main-container': isScreenLarge$ | async
     }">
         <div class="close-button-wrapper">
             <div class="close-button" (click)="toggle()">
@@ -15,6 +17,7 @@
         </div>
         <div class="game-status">
             <div class="game-status-text">
+                <div class="game-won">Perdu</div>
                 <div class="game-won" *ngIf="gameWon">Bien joué !</div>
                 <div class="game-over" *ngIf="gameOver">Perdu</div>
             </div>

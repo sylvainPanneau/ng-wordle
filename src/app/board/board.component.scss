@@ -7,13 +7,25 @@
     height: 100%;
 }
 
-.hand-set-font{
-    font-size: 1vh;
+// ----- Angular CDK Layout -----
+
+.large-font{
+    font-size: 1.6vh;
 }
 
-.hand-set-radius{
+.medium-font{
+    font-size: 1.4vh;
+}
+
+.small-font{
+    font-size: 1.2vh;
+}
+
+.small-radius{
     border-radius: 5px !important;
 }
+
+// ----- Angular CDK Layout -----
 
 .letter-row {
     display: flex;
