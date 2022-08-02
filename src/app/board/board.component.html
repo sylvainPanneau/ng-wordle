@@ -1,4 +1,4 @@
-<app-end-game [gameWon]="won" [gameOver]="gameOver" [solution]="solution"></app-end-game>
+<app-end-game [gameWon]="won" [gameOver]="gameOver" [solution]="solution" *ngIf="gameOver || won"></app-end-game>
 <div class="main-container">
     <div class="lines-holder">
         <div class="line" *ngFor="let id of LINE_IDS" [ngClass]="{
