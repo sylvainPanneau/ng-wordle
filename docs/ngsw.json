@@ -1,0 +1,81 @@
+{
+  "configVersion": 1,
+  "timestamp": 1659431836432,
+  "index": "/ng-wordle/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/ng-wordle/favicon.ico",
+        "/ng-wordle/index.html",
+        "/ng-wordle/main.45adbb3d0c959974.js",
+        "/ng-wordle/manifest.webmanifest",
+        "/ng-wordle/polyfills.cdd89dca651d6b49.js",
+        "/ng-wordle/runtime.511a5ce3f745fb2d.js",
+        "/ng-wordle/styles.0a12b8e26d9100c8.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/ng-wordle/assets/icons/icon-128x128.png",
+        "/ng-wordle/assets/icons/icon-144x144.png",
+        "/ng-wordle/assets/icons/icon-152x152.png",
+        "/ng-wordle/assets/icons/icon-192x192.png",
+        "/ng-wordle/assets/icons/icon-384x384.png",
+        "/ng-wordle/assets/icons/icon-512x512.png",
+        "/ng-wordle/assets/icons/icon-72x72.png",
+        "/ng-wordle/assets/icons/icon-96x96.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/ng-wordle/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
+    "/ng-wordle/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
+    "/ng-wordle/assets/icons/icon-152x152.png": "7479a9477815dfd9668d60f8b3b2fba709b91310",
+    "/ng-wordle/assets/icons/icon-192x192.png": "1abd80d431a237a853ce38147d8c63752f10933b",
+    "/ng-wordle/assets/icons/icon-384x384.png": "329749cd6393768d3131ed6304c136b1ca05f2fd",
+    "/ng-wordle/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
+    "/ng-wordle/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
+    "/ng-wordle/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
+    "/ng-wordle/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
+    "/ng-wordle/index.html": "b5a5abc8dc7d58ea09271261602e35805931f979",
+    "/ng-wordle/main.45adbb3d0c959974.js": "657650395fe9a940ee3793432e7c10b5e9ddc4e6",
+    "/ng-wordle/manifest.webmanifest": "235c181c0839661e90468d858742a042349b6dff",
+    "/ng-wordle/polyfills.cdd89dca651d6b49.js": "00c1cb2424ad3df4795a7619e3e9121e28024a0b",
+    "/ng-wordle/runtime.511a5ce3f745fb2d.js": "2a6c35a2a943991acd42aa2f6fa89e9f84f95c62",
+    "/ng-wordle/styles.0a12b8e26d9100c8.css": "1ff721c0a3bcf45abe6f88b8eceb157312ddadba"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
