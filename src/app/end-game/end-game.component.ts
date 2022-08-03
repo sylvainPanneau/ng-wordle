@@ -38,6 +38,7 @@ export class EndGameComponent implements OnInit {
   isScreenSmall$?: Observable<boolean>;
   isScreenMedium$?: Observable<boolean>;
   isScreenLarge$?: Observable<boolean>;
+  isScreenTablet$?: Observable<boolean>;
 
   toggle() {
     this.isOpen = !this.isOpen;
@@ -59,6 +60,9 @@ export class EndGameComponent implements OnInit {
       .pipe(map(({ matches }) => matches));
     this.isScreenLarge$ = this.breakPointObserver
       .observe(('(max-width: 425px)'))
+      .pipe(map(({ matches }) => matches));
+    this.isScreenTablet$ = this.breakPointObserver
+      .observe(('(max-width: 768px)'))
       .pipe(map(({ matches }) => matches));
   }
 

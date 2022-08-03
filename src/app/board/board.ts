@@ -27,6 +27,7 @@ export class BoardComponent implements OnInit {
   isScreenSmall$?: Observable<boolean>;
   isScreenMedium$?: Observable<boolean>;
   isScreenLarge$?: Observable<boolean>;
+  isScreenTablet$?: Observable<boolean>;
 
   row1: string[] = ["A", 'Z', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P']
   row2: string[] = ["Q", 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M']
@@ -54,6 +55,9 @@ export class BoardComponent implements OnInit {
       .pipe(map(({ matches }) => matches));
     this.isScreenLarge$ = this.breakPointObserver
       .observe(('(max-width: 425px)'))
+      .pipe(map(({ matches }) => matches));
+    this.isScreenTablet$ = this.breakPointObserver
+      .observe(('(max-width: 768px)'))
       .pipe(map(({ matches }) => matches));
   }
 

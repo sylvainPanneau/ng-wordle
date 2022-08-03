@@ -2,7 +2,8 @@
     <div class="main-container" [ngClass]="{
         'small-main-container': isScreenSmall$ | async,
         'medium-main-container': isScreenMedium$ | async,
-        'large-main-container': isScreenLarge$ | async
+        'large-main-container': isScreenLarge$ | async,
+        'tablet-main-container': isScreenTablet$ | async
     }">
         <div class="close-button-wrapper">
             <div class="close-button" (click)="toggle()">

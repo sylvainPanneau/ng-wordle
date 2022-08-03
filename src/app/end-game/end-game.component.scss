@@ -19,21 +19,28 @@
 .large-main-container {
     width: 50%;
     height: 30%;
-    font-size: 1.7vh;
+    font-size: 0.86em;
     border-radius: 5px;
 }
 
 .medium-main-container {
     width: 60%;
     height: 35%;
-    font-size: 1.7vh;
+    font-size: 0.86em;
     border-radius: 5px;
 }
 
 .small-main-container {
     width: 60%;
     height: 30%;
-    font-size: 1.5vh;
+    font-size: 0.7em;
+    border-radius: 5px;
+}
+
+.tablet-main-container{
+    width: 60%;
+    height: 30%;
+    font-size: 0.9em;
     border-radius: 5px;
 }
 
