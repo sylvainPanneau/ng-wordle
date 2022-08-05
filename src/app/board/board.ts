@@ -8,6 +8,7 @@ import { CORRECT, INCORRECT, PRESENT, UNKNOWN } from '../colors';
 import { SolutionServiceService } from '../solution-service.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Breakpoints } from '@angular/cdk/layout';
+import { GameDbServiceService } from '../game-db-service.service';
 
 @Component({
   selector: 'app-board',
@@ -38,7 +39,8 @@ export class BoardComponent implements OnInit {
   constructor(
     private guessService: GuessesServiceService,
     private solutionService: SolutionServiceService,
-    private breakPointObserver: BreakpointObserver
+    private breakPointObserver: BreakpointObserver,
+    private gameDBService: GameDbServiceService
   ) { }
 
   ngOnInit(): void {

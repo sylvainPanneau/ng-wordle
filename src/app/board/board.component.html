@@ -1,5 +1,12 @@
 <app-end-game [gameWon]="won" [gameOver]="gameOver" [solution]="solution" *ngIf="gameOver || won"></app-end-game>
 <div class="main-container">
+    <div class="header">
+        <div class="header-content">
+            <div class="french">🇫🇷</div>
+            <div class="title">LE MOT</div>
+            <div class="english">🇺🇸</div>
+        </div>
+    </div>
     <div class="lines-holder">
         <div class="line" *ngFor="let id of LINE_IDS" [ngClass]="{
             'small-font': isScreenSmall$ | async,
