@@ -6,4 +6,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-
 * {
     color: white;
     user-select: none;
+    outline:none;
+    -webkit-tap-highlight-color: transparent;
 }

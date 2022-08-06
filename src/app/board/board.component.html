@@ -1,6 +1,7 @@
 <app-end-game [gameWon]="won" [gameOver]="gameOver" [solution]="solution" *ngIf="gameOver || won"></app-end-game>
 <div class="main-container">
-    <app-progress-spinner class="loading-spinner" [@loadingScreen]="isLoading ? 'isLoading' : 'hasLoaded'"></app-progress-spinner>
+    <app-progress-spinner class="loading-spinner" [@loadingScreen]="isLoading ? 'isLoading' : 'hasLoaded'">
+    </app-progress-spinner>
     <div class="header">
         <div class="header-content">
             <div class="french" (click)="changeLanguage('fr')" [ngClass]="{
@@ -8,7 +9,24 @@
             }">
                 🇫🇷
             </div>
-            <div class="title">LE MOT</div>
+            <div class="title">
+                <div class="title-french" *ngIf="getLanguage()==='fr'">
+                    <div class="title-letter-correct">L</div>
+                    <div>E</div>
+                    <div>&nbsp;</div>
+                    <div class="title-letter-present">M</div>
+                    <div>O</div>
+                    <div>T</div>
+                </div>
+                <div class="title-english" *ngIf="getLanguage()==='en'">
+                    <div class="title-letter-correct">W</div>
+                    <div>O</div>
+                    <div>R</div>
+                    <div class="title-letter-present">D</div>
+                    <div>L</div>
+                    <div>E</div>
+                </div>
+            </div>
             <div class="english" (click)="changeLanguage('en')" [ngClass]="{
                 'language-selected': getLanguage() === 'en'
             }">
@@ -121,7 +139,7 @@
             <button class="letter-keyboard" (click)="onClick('Enter')" [ngClass]="{
                 'small-radius': isScreenLarge$ || isScreenMedium$ || isScreenSmall$ || isScreenTablet$ | async
             }">
-                Enter
+                ⏎
             </button>
             <button class="letter-keyboard" *ngFor="let letter of row3" (click)="onClick(letter)" [ngClass]="{
                 'correct-keyboard': isCorrectLetter(letter),
