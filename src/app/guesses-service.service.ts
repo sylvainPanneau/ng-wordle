@@ -214,4 +214,13 @@ export class GuessesServiceService {
     return guessToClear;
   }
 
+  resetGame(): void{
+    GUESSES.forEach(item => {
+      item.submitted = false;
+      item.canShake = false;
+      item.triedToBeSubmitted = false;
+      item.word = [];
+    });
+  }
+
 }

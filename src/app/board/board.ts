@@ -3,20 +3,35 @@ import { map, Observable } from 'rxjs';
 import { GuessesServiceService } from '../guesses-service.service';
 import { Letter, Word } from '../word';
 import { Guess } from '../guess';
-import Data from '../../../data/words.json';
 import { CORRECT, INCORRECT, PRESENT, UNKNOWN } from '../colors';
 import { SolutionServiceService } from '../solution-service.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Breakpoints } from '@angular/cdk/layout';
+import { GameDbServiceService } from '../game-db-service.service';
+import { trigger, style, state, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
-  styleUrls: ['./board.component.scss']
+  styleUrls: ['./board.component.scss'],
+  animations: [
+    trigger('loadingScreen', [
+      state('isLoading', style({
+        display: 'block'
+      })),
+      state('hasLoaded', style({
+        display: 'none'
+      })),
+      transition('isLoading => hasLoaded', [
+      ]),
+      transition('hasLoaded => isLoading', [
+      ]),
+    ]),
+  ],
 })
 export class BoardComponent implements OnInit {
 
   LINE_IDS = [0, 1, 2, 3, 4, 5];
+  isLoading: boolean = false;
   word!: Word;
   selectedLetter: string = "";
   won: boolean = false;
@@ -28,6 +43,7 @@ export class BoardComponent implements OnInit {
   isScreenMedium$?: Observable<boolean>;
   isScreenLarge$?: Observable<boolean>;
   isScreenTablet$?: Observable<boolean>;
+  Data!: string[];
 
   row1: string[] = ["A", 'Z', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P']
   row2: string[] = ["Q", 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M']
@@ -38,10 +54,12 @@ export class BoardComponent implements OnInit {
   constructor(
     private guessService: GuessesServiceService,
     private solutionService: SolutionServiceService,
-    private breakPointObserver: BreakpointObserver
+    private breakPointObserver: BreakpointObserver,
+    private gameDBService: GameDbServiceService
   ) { }
 
   ngOnInit(): void {
+    this.Data = this.gameDBService.getGameDb();
     this.solution = this.solutionService.getSolution();
     this.getAllSubmittedLetters();
     this.guessService.getCanShake().subscribe(item => {
@@ -73,13 +91,13 @@ export class BoardComponent implements OnInit {
       this.backspace(this.guessService.getCurrentGuessId());
       this.manageShakeOperations(this.guessService.getCurrentGuessId());
     }
-    if (event.key === "Enter" && this.isFull() && Data.includes(guess)) {
+    if (event.key === "Enter" && this.isFull() && this.Data.includes(guess)) {
       const id = this.guessService.getCurrentGuessId(); // save id before submitting
       this.submit(id);
       this.setGameState(id);
       this.getAllSubmittedLetters();
     }
-    else if (event.key === "Enter" && this.isFull() && !Data.includes(guess)) {
+    else if (event.key === "Enter" && this.isFull() && !this.Data.includes(guess)) {
       const id = this.guessService.getCurrentGuessId();
       this.manageShakeOperations(id);
     }
@@ -90,6 +108,35 @@ export class BoardComponent implements OnInit {
       this.selectedLetter = event.key.toUpperCase();
       this.addLetterCurrentGuess();
     }
+  }
+
+  changeLanguage(language: string): void {
+    if(this.gameDBService.getLanguage() == language) return;
+    this.gameDBService.setLanguage(language);
+    this.Data = this.gameDBService.getGameDb();
+    this.isLoading = true;
+    setTimeout(() => {
+      this.isLoading = false;
+      this.resetGame();
+    }, 300);
+  }
+
+  getLanguage(): string {
+    return this.gameDBService.getLanguage();
+  }
+
+  resetGame(): void {
+    this.guessService.resetGame();
+    this.solutionService.updateSolution();
+    this.solution = this.solutionService.getSolution();
+    this.won = false;
+    this.gameOver = false;
+    this.selectedLetter = "";
+    this.getAllSubmittedLetters();
+    this.guessService.getCanShake()
+      .subscribe(item => {
+        this.canShake = item;
+      });
   }
 
   setGameState(submittedGuessId: number): void {
@@ -134,13 +181,13 @@ export class BoardComponent implements OnInit {
       this.backspace(this.guessService.getCurrentGuessId());
       this.manageShakeOperations(this.guessService.getCurrentGuessId());
     }
-    else if (key === "Enter" && this.isFull() && Data.includes(guess)) {
+    else if (key === "Enter" && this.isFull() && this.Data.includes(guess)) {
       const id = this.guessService.getCurrentGuessId();
       this.submit(id);
       this.setGameState(id);
       this.getAllSubmittedLetters();
     }
-    else if (key === "Enter" && this.isFull() && !Data.includes(guess)) {
+    else if (key === "Enter" && this.isFull() && !this.Data.includes(guess)) {
       const id = this.guessService.getCurrentGuessId();
       this.manageShakeOperations(id);
     }
