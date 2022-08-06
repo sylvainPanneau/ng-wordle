@@ -7,13 +7,25 @@ import EN_WORDS from "../../data/en_words.json";
 })
 export class GameDbServiceService {
 
+  private language: string = 'fr';
+
   constructor() { }
 
-  getGameDb(language: any): string[] {
-    if (language === 'fr') {
-      return FR_WORDS;
-    } else {
-      return EN_WORDS;
+  setLanguage(language: string): void {
+    if(language === 'fr' || language === 'en') {
+      this.language = language;
     }
+    else this.language = 'fr';
+  }
+
+  getLanguage(): string {
+    return this.language;
+  }
+
+  getGameDb(): string[] {
+    if(this.language === 'fr') {
+      return FR_WORDS;
+    }
+    else return EN_WORDS;
   }
 }

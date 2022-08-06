@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Guess } from './guess';
 import { Word } from './word';
-import Data from '../../data/words.json';
 import { GameDbServiceService } from './game-db-service.service';
 
 @Injectable({
@@ -9,9 +8,15 @@ import { GameDbServiceService } from './game-db-service.service';
 })
 export class SolutionServiceService {
 
-  solution: string = Data[Math.floor(Math.random() * Data.length)];
+  Data: string[] = this.gameDBService.getGameDb();
+  solution: string = this.Data[Math.floor(Math.random() * this.Data.length)];
 
   constructor(private gameDBService: GameDbServiceService) { }
+
+  updateSolution(): void{
+    this.Data = this.gameDBService.getGameDb();
+    this.solution = this.Data[Math.floor(Math.random() * this.Data.length)];
+  }
 
   getSolution(): string {
     return this.solution;

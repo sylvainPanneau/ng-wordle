@@ -1,10 +1,19 @@
 <app-end-game [gameWon]="won" [gameOver]="gameOver" [solution]="solution" *ngIf="gameOver || won"></app-end-game>
 <div class="main-container">
+    <app-progress-spinner class="loading-spinner" [@loadingScreen]="isLoading ? 'isLoading' : 'hasLoaded'"></app-progress-spinner>
     <div class="header">
         <div class="header-content">
-            <div class="french">🇫🇷</div>
+            <div class="french" (click)="changeLanguage('fr')" [ngClass]="{
+                'language-selected': getLanguage() === 'fr'
+            }">
+                🇫🇷
+            </div>
             <div class="title">LE MOT</div>
-            <div class="english">🇺🇸</div>
+            <div class="english" (click)="changeLanguage('en')" [ngClass]="{
+                'language-selected': getLanguage() === 'en'
+            }">
+                🇺🇸
+            </div>
         </div>
     </div>
     <div class="lines-holder">

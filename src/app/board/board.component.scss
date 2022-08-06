@@ -7,6 +7,14 @@
     height: 100%;
 }
 
+.loading-spinner{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
 .header{
     display: flex;
     align-items: center;
@@ -27,7 +35,7 @@
 }
 
 .title{
-    font-size: 1.2em;
+    font-size: 1em;
     font-weight: bold;
     color: #fff;
     letter-spacing: 1em;
@@ -43,6 +51,17 @@
     padding-left: 0.6em;
     padding-bottom: 0.3em;
     padding-top: 0.3em;
+}
+
+.language-selected{
+    background-color: #3eaa42;
+    border-color: #157d19;
+    transition: all .3s;
+}
+
+.french:hover:not(.language-selected), .english:hover:not(.language-selected){
+    background-color: #525253;
+    transition: background-color 0.2s ease-in-out;
 }
 
 // ----- Angular CDK Layout -----
