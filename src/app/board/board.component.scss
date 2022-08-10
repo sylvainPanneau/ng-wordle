@@ -143,12 +143,12 @@
     width: 2.5em;
     height: 3.5em;
     transform: translateY(0em);
-    transition: transform 0.05s ease-in-out;
+    transition: transform 0.05s;
 }
 
 .letter-keyboard:active{
-    transform: translateY(0.15em);
-    transition: transform 0.05s ease-in-out;
+    transform: translateY(0.10em);
+    transition: transform 0.05s;
 }
 
 .line {
@@ -214,6 +214,7 @@
     height: 0.5em;
     border: 3px solid #2f2f2f;
     perspective: 1000px;
+    transition: border 0.1s;
 }
 
 .flip-letter-1 {
@@ -392,6 +393,10 @@
     border: 3px solid #cd8729;
     transition: all 0.5s;
     transition-delay: 1000ms;
+}
+
+.selection-active{
+    border: 3px solid #73adff;
 }
 
 .keyboard {

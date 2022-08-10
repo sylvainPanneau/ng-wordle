@@ -244,6 +244,19 @@ export class BoardComponent implements OnInit {
     return this.guessService.isWordSubmitted(wordId);
   }
 
+  // method to check if we are on the current letter (blue borders)
+  isActive(wordId: number, index: number): boolean {
+    if(this.gameOver || this.won) return false;
+    let res = false;
+    try{
+      const word: Word = this.getWord(wordId);
+      if(word.length === index && this.guessService.getCurrentGuessId() === wordId) res = true;
+    } catch (e) {
+      res = false;
+    }
+    return res;
+  }
+
   isCorrect(wordId: number, index: number): boolean {
     let res: boolean = false;
     try {

@@ -50,6 +50,7 @@
                     'present-1': isPresent(id, 0), 
                     'unknown': isUnknown(id, 0),
                     'flip-letter-1': canFlip(id, 0),
+                    'selection-active': isActive(id, 0),
                     'small-radius': isScreenLarge$ || isScreenMedium$ || isScreenSmall$ || isScreenTablet$ | async
                 }">
                 <div [ngClass]="{'flip-text-1': canFlip(id, 0)}">
@@ -62,6 +63,7 @@
                     'present-2': isPresent(id, 1),
                     'unknown': isUnknown(id, 1),
                     'flip-letter-2': canFlip(id, 1),
+                    'selection-active': isActive(id, 1),
                     'small-radius': isScreenLarge$ || isScreenMedium$ || isScreenSmall$ || isScreenTablet$ | async
                 }">
                 <div [ngClass]="{'flip-text-2': canFlip(id, 1)}">
@@ -74,6 +76,7 @@
                     'present-3': isPresent(id, 2),
                     'unknown': isUnknown(id, 2),
                     'flip-letter-3': canFlip(id, 2),
+                    'selection-active': isActive(id, 2),
                     'small-radius': isScreenLarge$ || isScreenMedium$ || isScreenSmall$ || isScreenTablet$ | async
                 }">
                 <div [ngClass]="{'flip-text-3': canFlip(id, 2)}">
@@ -86,6 +89,7 @@
                     'present-4': isPresent(id, 3), 
                     'unknown': isUnknown(id, 3),
                     'flip-letter-4': canFlip(id, 3),
+                    'selection-active': isActive(id, 3),
                     'small-radius': isScreenLarge$ || isScreenMedium$ || isScreenSmall$ || isScreenTablet$ | async
                 }">
                 <div [ngClass]="{'flip-text-4': canFlip(id, 3)}">
@@ -98,6 +102,7 @@
                     'present-5': isPresent(id, 4),
                     'unknown': isUnknown(id, 4 ),
                     'flip-letter-5': canFlip(id, 4),
+                    'selection-active': isActive(id, 4),
                     'small-radius': isScreenLarge$ || isScreenMedium$ || isScreenSmall$ || isScreenTablet$ | async
                 }">
                 <div [ngClass]="{'flip-text-5': canFlip(id, 4)}">
