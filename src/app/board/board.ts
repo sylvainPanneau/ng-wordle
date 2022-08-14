@@ -16,31 +16,34 @@ import { OAuthLoginServiceService } from '../oauth-login-service.service';
   styleUrls: ['./board.component.scss'],
   animations: [
     trigger('loadingScreen', [
-      state('isLoading', style({
-        display: 'block'
-      })),
-      state('hasLoaded', style({
-        display: 'none'
-      })),
-      transition('isLoading => hasLoaded', [
-      ]),
-      transition('hasLoaded => isLoading', [
-      ]),
+      state(
+        'isLoading',
+        style({
+          display: 'block',
+        })
+      ),
+      state(
+        'hasLoaded',
+        style({
+          display: 'none',
+        })
+      ),
+      transition('isLoading => hasLoaded', []),
+      transition('hasLoaded => isLoading', []),
     ]),
   ],
 })
 export class BoardComponent implements OnInit {
-
-  userName: string = "";
+  userName: string = '';
   loginClicked: boolean = false;
 
   LINE_IDS = [0, 1, 2, 3, 4, 5];
   isLoading: boolean = false;
   word!: Word;
-  selectedLetter: string = "";
+  selectedLetter: string = '';
   won: boolean = false;
   gameOver: boolean = false;
-  solution: string = "";
+  solution: string = '';
   allSubmittedLetters: Letter[] = [];
   canShake: { [key: number]: boolean } = {};
   isScreenSmall$?: Observable<boolean>;
@@ -49,9 +52,9 @@ export class BoardComponent implements OnInit {
   isScreenTablet$?: Observable<boolean>;
   Data!: string[];
 
-  row1: string[] = ["A", 'Z', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P']
-  row2: string[] = ["Q", 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M']
-  row3: string[] = ["W", 'X', 'C', 'V', 'B', 'N']
+  row1: string[] = ['A', 'Z', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'];
+  row2: string[] = ['Q', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M'];
+  row3: string[] = ['W', 'X', 'C', 'V', 'B', 'N'];
 
   hasBeenCorrect: string[] = []; // keep track of all keyboard letters that have been marked as correct on the keyboard layout
 
@@ -60,55 +63,61 @@ export class BoardComponent implements OnInit {
     private solutionService: SolutionServiceService,
     private breakPointObserver: BreakpointObserver,
     private gameDBService: GameDbServiceService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.Data = this.gameDBService.getGameDb();
     this.solution = this.solutionService.getSolution();
     this.getAllSubmittedLetters();
-    this.guessService.getCanShake().subscribe(item => {
+    this.guessService.getCanShake().subscribe((item) => {
       this.canShake = item;
     });
     this.isScreenSmall$ = this.breakPointObserver
-      .observe(('(max-width: 320px)'))
+      .observe('(max-width: 320px)')
       .pipe(map(({ matches }) => matches));
     this.isScreenMedium$ = this.breakPointObserver
-      .observe(('(max-width: 375px)'))
+      .observe('(max-width: 375px)')
       .pipe(map(({ matches }) => matches));
     this.isScreenLarge$ = this.breakPointObserver
-      .observe(('(max-width: 425px)'))
+      .observe('(max-width: 425px)')
       .pipe(map(({ matches }) => matches));
     this.isScreenTablet$ = this.breakPointObserver
-      .observe(('(max-width: 768px)'))
+      .observe('(max-width: 768px)')
       .pipe(map(({ matches }) => matches));
   }
 
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
-    let guess: string = "";
-    this.guessService.getCurrentGuess().subscribe(item => {
-      item.word.forEach(letter => {
+    if (this.loginClicked) return;
+    let guess: string = '';
+    this.guessService.getCurrentGuess().subscribe((item) => {
+      item.word.forEach((letter) => {
         guess += letter.letter;
       });
     });
-    if (event.key === "Backspace" && !this.isEmpty()) {
+    if (event.key === 'Backspace' && !this.isEmpty()) {
       this.backspace(this.guessService.getCurrentGuessId());
       this.manageShakeOperations(this.guessService.getCurrentGuessId());
     }
-    if (event.key === "Enter" && this.isFull() && this.Data.includes(guess)) {
+    if (event.key === 'Enter' && this.isFull() && this.Data.includes(guess)) {
       const id = this.guessService.getCurrentGuessId(); // save id before submitting
       this.submit(id);
       this.setGameState(id);
       this.getAllSubmittedLetters();
-    }
-    else if (event.key === "Enter" && this.isFull() && !this.Data.includes(guess)) {
+    } else if (
+      event.key === 'Enter' &&
+      this.isFull() &&
+      !this.Data.includes(guess)
+    ) {
       const id = this.guessService.getCurrentGuessId();
       this.manageShakeOperations(id);
     }
-    if ((this.row1.includes(event.key.toUpperCase())
-      || this.row2.includes(event.key.toUpperCase())
-      || this.row3.includes(event.key.toUpperCase())) &&
-      !(this.gameOver || this.won)) {
+    if (
+      (this.row1.includes(event.key.toUpperCase()) ||
+        this.row2.includes(event.key.toUpperCase()) ||
+        this.row3.includes(event.key.toUpperCase())) &&
+      !(this.gameOver || this.won)
+    ) {
       this.selectedLetter = event.key.toUpperCase();
       this.addLetterCurrentGuess();
     }
@@ -135,22 +144,21 @@ export class BoardComponent implements OnInit {
     this.solution = this.solutionService.getSolution();
     this.won = false;
     this.gameOver = false;
-    this.selectedLetter = "";
+    this.selectedLetter = '';
     this.getAllSubmittedLetters();
-    this.guessService.getCanShake()
-      .subscribe(item => {
-        this.canShake = item;
-      });
+    this.guessService.getCanShake().subscribe((item) => {
+      this.canShake = item;
+    });
   }
 
   setGameState(submittedGuessId: number): void {
-    this.guessService.getGuess(submittedGuessId).subscribe(item => {
-      if (item.word.every(letter => letter.color === CORRECT)) {
+    this.guessService.getGuess(submittedGuessId).subscribe((item) => {
+      if (item.word.every((letter) => letter.color === CORRECT)) {
         this.won = true;
         this.gameOver = false;
       }
     });
-    this.guessService.allGuessesSubmitted().subscribe(item => {
+    this.guessService.allGuessesSubmitted().subscribe((item) => {
       if (item && !this.won) {
         this.gameOver = true;
       }
@@ -161,7 +169,7 @@ export class BoardComponent implements OnInit {
     //forcing the update for the html binding (canShake[id]) in case the line is already marked as shakeable but user submits it again
     this.canShake = {};
     setTimeout(() => {
-      this.guessService.getCanShake().subscribe(item => {
+      this.guessService.getCanShake().subscribe((item) => {
         this.canShake = item;
       });
     }, 0.1);
@@ -175,30 +183,29 @@ export class BoardComponent implements OnInit {
 
   onClick(key: string) {
     this.selectedLetter = key.toUpperCase();
-    let guess: string = "";
-    this.guessService.getCurrentGuess().subscribe(item => {
-      item.word.forEach(letter => {
+    let guess: string = '';
+    this.guessService.getCurrentGuess().subscribe((item) => {
+      item.word.forEach((letter) => {
         guess += letter.letter;
       });
     });
-    if (key === "backspace" && !this.isEmpty()) {
+    if (key === 'backspace' && !this.isEmpty()) {
       this.backspace(this.guessService.getCurrentGuessId());
       this.manageShakeOperations(this.guessService.getCurrentGuessId());
-    }
-    else if (key === "Enter" && this.isFull() && this.Data.includes(guess)) {
+    } else if (key === 'Enter' && this.isFull() && this.Data.includes(guess)) {
       const id = this.guessService.getCurrentGuessId();
       this.submit(id);
       this.setGameState(id);
       this.getAllSubmittedLetters();
-    }
-    else if (key === "Enter" && this.isFull() && !this.Data.includes(guess)) {
+    } else if (key === 'Enter' && this.isFull() && !this.Data.includes(guess)) {
       const id = this.guessService.getCurrentGuessId();
       this.manageShakeOperations(id);
-    }
-    else if ((this.row1.includes(key.toUpperCase())
-      || this.row2.includes(key.toUpperCase())
-      || this.row3.includes(key.toUpperCase())) &&
-      !(this.gameOver || this.won)) {
+    } else if (
+      (this.row1.includes(key.toUpperCase()) ||
+        this.row2.includes(key.toUpperCase()) ||
+        this.row3.includes(key.toUpperCase())) &&
+      !(this.gameOver || this.won)
+    ) {
       this.addLetterCurrentGuess();
     }
   }
@@ -206,7 +213,7 @@ export class BoardComponent implements OnInit {
   submit(id: number): void {
     this.guessService.updateColor(this.guessService.getCurrentGuessId());
     this.guessService.submitGuess(this.guessService.getCurrentGuessId());
-    console.log("Submitted guess");
+    console.log('Submitted guess');
   }
 
   backspace(id: number): void {
@@ -214,13 +221,16 @@ export class BoardComponent implements OnInit {
   }
 
   addLetterCurrentGuess(): Observable<Guess> {
-    return this.guessService.addLetter(this.guessService.getCurrentGuessId(), this.selectedLetter);
+    return this.guessService.addLetter(
+      this.guessService.getCurrentGuessId(),
+      this.selectedLetter
+    );
   }
 
   getWord(id: number): Word {
     let word!: Word;
 
-    this.guessService.getGuess(id).subscribe(item => {
+    this.guessService.getGuess(id).subscribe((item) => {
       word = item.word;
     });
     return word;
@@ -235,11 +245,11 @@ export class BoardComponent implements OnInit {
   }
 
   getLetter(wordId: number, index: number): string {
-    let letter = "";
+    let letter = '';
     try {
       letter = this.getWord(wordId)[index].letter;
     } catch (e) {
-      letter = "";
+      letter = '';
     }
     return letter;
   }
@@ -254,7 +264,11 @@ export class BoardComponent implements OnInit {
     let res = false;
     try {
       const word: Word = this.getWord(wordId);
-      if (word.length === index && this.guessService.getCurrentGuessId() === wordId) res = true;
+      if (
+        word.length === index &&
+        this.guessService.getCurrentGuessId() === wordId
+      )
+        res = true;
     } catch (e) {
       res = false;
     }
@@ -264,7 +278,9 @@ export class BoardComponent implements OnInit {
   isCorrect(wordId: number, index: number): boolean {
     let res: boolean = false;
     try {
-      res = this.getWord(wordId)[index].color === CORRECT && this.guessService.isWordSubmitted(wordId);
+      res =
+        this.getWord(wordId)[index].color === CORRECT &&
+        this.guessService.isWordSubmitted(wordId);
     } catch (e) {
       res = false;
     }
@@ -274,7 +290,9 @@ export class BoardComponent implements OnInit {
   isIncorrect(wordId: number, index: number): boolean {
     let res: boolean = false;
     try {
-      res = this.getWord(wordId)[index].color === INCORRECT && this.guessService.isWordSubmitted(wordId);
+      res =
+        this.getWord(wordId)[index].color === INCORRECT &&
+        this.guessService.isWordSubmitted(wordId);
     } catch (e) {
       res = false;
     }
@@ -284,7 +302,9 @@ export class BoardComponent implements OnInit {
   isPresent(wordId: number, index: number): boolean {
     let res: boolean = false;
     try {
-      res = this.getWord(wordId)[index].color === PRESENT && this.guessService.isWordSubmitted(wordId);
+      res =
+        this.getWord(wordId)[index].color === PRESENT &&
+        this.guessService.isWordSubmitted(wordId);
     } catch (e) {
       res = false;
     }
@@ -294,7 +314,9 @@ export class BoardComponent implements OnInit {
   isUnknown(wordId: number, index: number): boolean {
     let res: boolean = false;
     try {
-      res = this.getWord(wordId)[index].color === UNKNOWN && this.guessService.isWordSubmitted(wordId);
+      res =
+        this.getWord(wordId)[index].color === UNKNOWN &&
+        this.guessService.isWordSubmitted(wordId);
     } catch (e) {
       res = false;
     }
@@ -304,7 +326,7 @@ export class BoardComponent implements OnInit {
   isCorrectLetter(letter: string): boolean {
     let res: boolean = false;
     try {
-      this.allSubmittedLetters.forEach(item => {
+      this.allSubmittedLetters.forEach((item) => {
         if (item.letter === letter && item.color === CORRECT) {
           res = true;
         }
@@ -312,7 +334,8 @@ export class BoardComponent implements OnInit {
     } catch (e) {
       res = false;
     }
-    if (res) { // if letter is marked as correct on the keyboard
+    if (res) {
+      // if letter is marked as correct on the keyboard
       this.hasBeenCorrect.push(letter);
     }
     return res;
@@ -321,7 +344,7 @@ export class BoardComponent implements OnInit {
   isIncorrectLetter(letter: string): boolean {
     let res: boolean = false;
     try {
-      this.allSubmittedLetters.forEach(item => {
+      this.allSubmittedLetters.forEach((item) => {
         if (item.letter === letter && item.color === INCORRECT) {
           res = true;
         }
@@ -335,8 +358,12 @@ export class BoardComponent implements OnInit {
   isPresentLetter(letter: string): boolean {
     let res: boolean = false;
     try {
-      this.allSubmittedLetters.forEach(item => {
-        if (item.letter === letter && item.color === PRESENT && !this.hasBeenCorrect.includes(letter)) {
+      this.allSubmittedLetters.forEach((item) => {
+        if (
+          item.letter === letter &&
+          item.color === PRESENT &&
+          !this.hasBeenCorrect.includes(letter)
+        ) {
           res = true;
         }
       });
@@ -349,7 +376,7 @@ export class BoardComponent implements OnInit {
   isUnknownLetter(letter: string): boolean {
     let res: boolean = false;
     try {
-      this.allSubmittedLetters.forEach(item => {
+      this.allSubmittedLetters.forEach((item) => {
         if (item.letter === letter && item.color === UNKNOWN) {
           res = true;
         }
@@ -361,20 +388,19 @@ export class BoardComponent implements OnInit {
   }
 
   getAllSubmittedLetters(): void {
-    this.guessService.getAllSubmittedLetters()
-      .subscribe(item => {
-        this.allSubmittedLetters = item;
-      });
+    this.guessService.getAllSubmittedLetters().subscribe((item) => {
+      this.allSubmittedLetters = item;
+    });
   }
 
   getColor(wordId: number, index: number): string {
-    let color = "";
+    let color = '';
     try {
       if (this.guessService.isWordSubmitted(wordId)) {
         color = this.getWord(wordId)[index].color;
       }
     } catch (e) {
-      color = "";
+      color = '';
     }
     return color;
   }
@@ -387,5 +413,4 @@ export class BoardComponent implements OnInit {
   toggleLogin(): void {
     this.loginClicked = !this.loginClicked;
   }
-
 }

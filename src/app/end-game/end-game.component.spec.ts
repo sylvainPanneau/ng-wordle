@@ -8,9 +8,8 @@ describe('EndGameComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EndGameComponent ]
-    })
-    .compileComponents();
+      declarations: [EndGameComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(EndGameComponent);
     component = fixture.componentInstance;

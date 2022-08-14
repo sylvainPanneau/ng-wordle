@@ -5,14 +5,12 @@ import { OAuthLoginServiceService } from '../oauth-login-service.service';
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
-  styleUrls: ['./account.component.scss']
+  styleUrls: ['./account.component.scss'],
 })
 export class AccountComponent implements OnInit {
+  constructor(private authService: OAuthLoginServiceService) {}
 
-  constructor(private authService: OAuthLoginServiceService) { }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   oAuthLogin(): void {
     this.authService.login();
@@ -29,5 +27,4 @@ export class AccountComponent implements OnInit {
   getUserName(): Observable<string> {
     return this.authService.getUserName();
   }
-
 }

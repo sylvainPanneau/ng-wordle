@@ -1,432 +1,434 @@
 .main-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
 }
 
-.loading-spinner{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1;
+.loading-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
 }
 
-.header{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding-top: 1em;
-    padding-bottom: 1em;
-    background-color: #1d1d20;
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  background-color: #1d1d20;
 }
 
-.header-content{
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    flex-direction: row;
-    align-items: center;
-    width: calc(8em * 5);
-    gap: 0.2em;
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: row;
+  align-items: center;
+  width: calc(8em * 5);
+  gap: 0.2em;
 }
 
-.title-french, .title-english{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 0.4em;
-    font-size: 1em;
-    font-weight: bold;
-    color: #fff;
+.title-french,
+.title-english {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4em;
+  font-size: 1em;
+  font-weight: bold;
+  color: #fff;
 }
 
-.title-letter-correct{
-    background-color: #3eaa42;
-    border: 3px solid #3eaa42;
-    border-radius: 5px;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
+.title-letter-correct {
+  background-color: #3eaa42;
+  border: 3px solid #3eaa42;
+  border-radius: 5px;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
 }
 
-.title-letter-present{
-    background-color: #cd8729;
-    border: 3px solid #cd8729;
-    border-radius: 5px;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
+.title-letter-present {
+  background-color: #cd8729;
+  border: 3px solid #cd8729;
+  border-radius: 5px;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
 }
 
-.french, .english, .login, .settings{
-    display: flex;
-    cursor: pointer;
-    background-color: #474748;
-    border-bottom: 2px solid #2b2b2b;
-    border-radius: 5px;
-    padding-right: 0.6em;
-    padding-left: 0.6em;
-    padding-bottom: 0.3em;
-    padding-top: 0.3em;
+.french,
+.english,
+.login,
+.settings {
+  display: flex;
+  cursor: pointer;
+  background-color: #474748;
+  border-bottom: 2px solid #2b2b2b;
+  border-radius: 5px;
+  padding-right: 0.6em;
+  padding-left: 0.6em;
+  padding-bottom: 0.3em;
+  padding-top: 0.3em;
 }
 
 .actions {
-    display: flex;
-    flex-direction: row;
-    gap: 0.4em;
+  display: flex;
+  flex-direction: row;
+  gap: 0.4em;
 }
 
 .actions > div {
-    width: 1em;
-    height: 1em;
-    padding: 0.5em;
+  width: 1em;
+  height: 1em;
+  padding: 0.5em;
 }
 
 .language-selection {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 0.4em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4em;
 }
 
-.language-selected{
-    transform: scale3d(1.1, 1.1, 1.1);
+.language-selected {
+  transform: scale3d(1.1, 1.1, 1.1);
 }
 
-.french:hover:not(.language-selected), 
+.french:hover:not(.language-selected),
 .english:hover:not(.language-selected),
-.actions > div:hover
-{
-    background-color: #575758;
-    transition: background-color 0.2s ease-in-out;
+.actions > div:hover {
+  background-color: #575758;
+  transition: background-color 0.2s ease-in-out;
 }
 
 // ----- Angular CDK Layout -----
 
-.tablet-font{
-    font-size: 0.85em;
+.tablet-font {
+  font-size: 0.85em;
 }
 
-.large-font{
-    font-size: 0.8em;
+.large-font {
+  font-size: 0.8em;
 }
 
-.medium-font{
-    font-size: 0.75em;
+.medium-font {
+  font-size: 0.75em;
 }
 
-.small-font{
-    font-size: 0.65em;
+.small-font {
+  font-size: 0.65em;
 }
 
-.small-radius{
-    border-radius: 5px !important;
+.small-radius {
+  border-radius: 5px !important;
 }
 
 // ----- Angular CDK Layout -----
 
 .letter-row {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
-    width: 100%;
-    height: 100%;
-    gap: 0.1em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 100%;
+  gap: 0.1em;
 }
 
 .last-row {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 // select first child of within .last-row
-.last-row>*:first-child,
-.last-row>*:last-child {
-    width: 25%;
+.last-row > *:first-child,
+.last-row > *:last-child {
+  width: 25%;
 }
 
 .letter-keyboard {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid black;
-    border-radius: 8px;
-    font-size: 1.3em;
-    font-weight: bold;
-    background-color: #636363;
-    cursor: pointer;
-    width: 2.5em;
-    height: 3.5em;
-    transform: translateY(0em);
-    transition: transform 0.05s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  border-radius: 8px;
+  font-size: 1.3em;
+  font-weight: bold;
+  background-color: #636363;
+  cursor: pointer;
+  width: 2.5em;
+  height: 3.5em;
+  transform: translateY(0em);
+  transition: transform 0.05s;
 }
 
-.letter-keyboard:active{
-    transform: translateY(0.10em);
-    transition: transform 0.05s;
+.letter-keyboard:active {
+  transform: translateY(0.1em);
+  transition: transform 0.05s;
 }
 
 .line {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .toast-not-in-list {
-    position: absolute;
-    top: 1em;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 1.3em;
-    font-weight: bold;
-    background-color: #e5e5e5;
-    color: black;
-    padding: 0.5em;
-    padding-left: 0.8em;
-    padding-right: 1em;
-    border-radius: 15px;
-    z-index: 1;
-    opacity: 0;
+  position: absolute;
+  top: 1em;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.3em;
+  font-weight: bold;
+  background-color: #e5e5e5;
+  color: black;
+  padding: 0.5em;
+  padding-left: 0.8em;
+  padding-right: 1em;
+  border-radius: 15px;
+  z-index: 1;
+  opacity: 0;
 }
 
 .fadeinout {
-    animation: fadeinout 1s;
+  animation: fadeinout 1s;
 }
 
 @keyframes fadeinout {
+  0%,
+  100% {
+    opacity: 0;
+  }
 
-    0%,
-    100% {
-        opacity: 0;
-    }
-
-    50% {
-        opacity: 1;
-    }
+  50% {
+    opacity: 1;
+  }
 }
 
 .lines-holder {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2em;
 }
 
 .letter-line {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 2.2em;
-    font-weight: bold;
-    padding: 0.7em;
-    margin: 0.1em;
-    border-radius: 8px;
-    border-style: solid;
-    width: 0.5em;
-    height: 0.5em;
-    border: 3px solid #2f2f2f;
-    perspective: 1000px;
-    transition: border 0.1s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.2em;
+  font-weight: bold;
+  padding: 0.7em;
+  margin: 0.1em;
+  border-radius: 8px;
+  border-style: solid;
+  width: 0.5em;
+  height: 0.5em;
+  border: 3px solid #2f2f2f;
+  perspective: 1000px;
+  transition: border 0.1s;
 }
 
 .flip-letter-1 {
-    transform: rotateX(180deg);
-    transition: transform 0.5s;
+  transform: rotateX(180deg);
+  transition: transform 0.5s;
 }
 
 .flip-text-1 {
-    transform: rotateX(180deg);
-    transition: transform 0.5s;
+  transform: rotateX(180deg);
+  transition: transform 0.5s;
 }
 
 .flip-letter-2 {
-    transform: rotateX(180deg);
-    transition: transform 0.5s;
-    transition-delay: 250ms;
+  transform: rotateX(180deg);
+  transition: transform 0.5s;
+  transition-delay: 250ms;
 }
 
 .flip-text-2 {
-    transform: rotateX(180deg);
-    transition: transform 0.5s;
-    transition-delay: 250ms;
+  transform: rotateX(180deg);
+  transition: transform 0.5s;
+  transition-delay: 250ms;
 }
 
 .flip-letter-3 {
-    transform: rotateX(180deg);
-    transition: transform 0.5s;
-    transition-delay: 500ms;
+  transform: rotateX(180deg);
+  transition: transform 0.5s;
+  transition-delay: 500ms;
 }
 
 .flip-text-3 {
-    transform: rotateX(180deg);
-    transition: transform 0.5s;
-    transition-delay: 500ms;
+  transform: rotateX(180deg);
+  transition: transform 0.5s;
+  transition-delay: 500ms;
 }
 
 .flip-letter-4 {
-    transform: rotateX(180deg);
-    transition: transform 0.5s;
-    transition-delay: 750ms;
+  transform: rotateX(180deg);
+  transition: transform 0.5s;
+  transition-delay: 750ms;
 }
 
 .flip-text-4 {
-    transform: rotateX(180deg);
-    transition: transform 0.5s;
-    transition-delay: 750ms;
+  transform: rotateX(180deg);
+  transition: transform 0.5s;
+  transition-delay: 750ms;
 }
 
 .flip-letter-5 {
-    transform: rotateX(180deg);
-    transition: transform 0.5s;
-    transition-delay: 1000ms;
+  transform: rotateX(180deg);
+  transition: transform 0.5s;
+  transition-delay: 1000ms;
 }
 
 .flip-text-5 {
-    transform: rotateX(180deg);
-    transition: transform 0.5s;
-    transition-delay: 1000ms;
+  transform: rotateX(180deg);
+  transition: transform 0.5s;
+  transition-delay: 1000ms;
 }
 
 .correct-keyboard {
-    background-color: #3eaa42;
+  background-color: #3eaa42;
 }
 
 .incorrect-keyboard {
-    background-color: #2c2c2c;
-    color: #969696;
+  background-color: #2c2c2c;
+  color: #969696;
 }
 
 .present-keyboard {
-    background-color: #cd8729;
+  background-color: #cd8729;
 }
 
 .correct-1 {
-    background-color: #3eaa42;
-    border: 3px solid #3eaa42;
-    transition: all 0.5s;
+  background-color: #3eaa42;
+  border: 3px solid #3eaa42;
+  transition: all 0.5s;
 }
 
 .incorrect-1 {
-    background-color: #3a3a3c;
-    border: 3px solid #3a3a3c;
-    transition: all 0.5s;
+  background-color: #3a3a3c;
+  border: 3px solid #3a3a3c;
+  transition: all 0.5s;
 }
 
 .present-1 {
-    background-color: #cd8729;
-    border: 3px solid #cd8729;
-    transition: all 0.5s;
+  background-color: #cd8729;
+  border: 3px solid #cd8729;
+  transition: all 0.5s;
 }
 
 .unknown {
-    background-color: #636363;
-    border: 3px solid #636363;
+  background-color: #636363;
+  border: 3px solid #636363;
 }
 
 .correct-2 {
-    background-color: #3eaa42;
-    border: 3px solid #3eaa42;
-    transition: all 0.5s;
-    transition-delay: 250ms;
+  background-color: #3eaa42;
+  border: 3px solid #3eaa42;
+  transition: all 0.5s;
+  transition-delay: 250ms;
 }
 
 .incorrect-2 {
-    background-color: #3a3a3c;
-    border: 3px solid #3a3a3c;
-    transition: all 0.5s;
-    transition-delay: 250ms;
+  background-color: #3a3a3c;
+  border: 3px solid #3a3a3c;
+  transition: all 0.5s;
+  transition-delay: 250ms;
 }
 
 .present-2 {
-    background-color: #cd8729;
-    border: 3px solid #cd8729;
-    transition: all 0.5s;
-    transition-delay: 250ms;
+  background-color: #cd8729;
+  border: 3px solid #cd8729;
+  transition: all 0.5s;
+  transition-delay: 250ms;
 }
 
 .correct-3 {
-    background-color: #3eaa42;
-    border: 3px solid #3eaa42;
-    transition: all 0.5s;
-    transition-delay: 500ms;
+  background-color: #3eaa42;
+  border: 3px solid #3eaa42;
+  transition: all 0.5s;
+  transition-delay: 500ms;
 }
 
 .incorrect-3 {
-    background-color: #3a3a3c;
-    border: 3px solid #3a3a3c;
-    transition: all 0.5s;
-    transition-delay: 500ms;
+  background-color: #3a3a3c;
+  border: 3px solid #3a3a3c;
+  transition: all 0.5s;
+  transition-delay: 500ms;
 }
 
 .present-3 {
-    background-color: #cd8729;
-    border: 3px solid #cd8729;
-    transition: all 0.5s;
-    transition-delay: 500ms;
+  background-color: #cd8729;
+  border: 3px solid #cd8729;
+  transition: all 0.5s;
+  transition-delay: 500ms;
 }
 
 .correct-4 {
-    background-color: #3eaa42;
-    border: 3px solid #3eaa42;
-    transition: all 0.5s;
-    transition-delay: 750ms;
+  background-color: #3eaa42;
+  border: 3px solid #3eaa42;
+  transition: all 0.5s;
+  transition-delay: 750ms;
 }
 
 .incorrect-4 {
-    background-color: #3a3a3c;
-    border: 3px solid #3a3a3c;
-    transition: all 0.5s;
-    transition-delay: 750ms;
+  background-color: #3a3a3c;
+  border: 3px solid #3a3a3c;
+  transition: all 0.5s;
+  transition-delay: 750ms;
 }
 
 .present-4 {
-    background-color: #cd8729;
-    border: 3px solid #cd8729;
-    transition: all 0.5s;
-    transition-delay: 750ms;
+  background-color: #cd8729;
+  border: 3px solid #cd8729;
+  transition: all 0.5s;
+  transition-delay: 750ms;
 }
 
 .correct-5 {
-    background-color: #3eaa42;
-    border: 3px solid #3eaa42;
-    transition: all 0.5s;
-    transition-delay: 1000ms;
+  background-color: #3eaa42;
+  border: 3px solid #3eaa42;
+  transition: all 0.5s;
+  transition-delay: 1000ms;
 }
 
 .incorrect-5 {
-    background-color: #3a3a3c;
-    border: 3px solid #3a3a3c;
-    transition: all 0.5s;
-    transition-delay: 1000ms;
+  background-color: #3a3a3c;
+  border: 3px solid #3a3a3c;
+  transition: all 0.5s;
+  transition-delay: 1000ms;
 }
 
 .present-5 {
-    background-color: #cd8729;
-    border: 3px solid #cd8729;
-    transition: all 0.5s;
-    transition-delay: 1000ms;
+  background-color: #cd8729;
+  border: 3px solid #cd8729;
+  transition: all 0.5s;
+  transition-delay: 1000ms;
 }
 
-.selection-active{
-    border: 3px solid #73adff;
+.selection-active {
+  border: 3px solid #73adff;
 }
 
 .keyboard {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1em;
-    margin-bottom: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+  margin-bottom: 1em;
 }

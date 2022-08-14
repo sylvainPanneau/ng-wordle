@@ -1,58 +1,56 @@
 <div class="main-container">
-    <div class="not-logged-container" *ngIf="!isLoggedIn()">
-        <div class="nl-blurred">
-            <div class="nl-header">
-                <div class="username">
-                    <div class="correct-letter">H</div>
-                    <div>e</div>
-                    <div>y,</div>
-                    &nbsp;
-                    <div class="present-letter">L</div>
-                    <div>a</div>
-                    &nbsp;
-                    <div>Z</div>
-                    <div>o</div>
-                    <div>n</div>
-                    <div>e</div>
-                    <div>!</div>
-                </div>
-                <div class="stats">
-                    Statistiques
-                </div>
-            </div>
-            <ul class="nl-select-player">
-                <li>La Zone de fou</li>
-            </ul>
+  <div class="not-logged-container" *ngIf="!isLoggedIn()">
+    <div class="nl-blurred">
+      <div class="nl-header">
+        <div class="username">
+          <div class="correct-letter">H</div>
+          <div>e</div>
+          <div>y,</div>
+          &nbsp;
+          <div class="present-letter">L</div>
+          <div>a</div>
+          &nbsp;
+          <div>Z</div>
+          <div>o</div>
+          <div>n</div>
+          <div>e</div>
+          <div>!</div>
         </div>
-        <div class="login-with-google-btn" (click)="oAuthLogin()">
-            <img class="google-logo" src="assets/icons/Google__G__Logo.svg" alt="">
-            <div class="login-with-google-btn-text">Continue with Google</div>
-        </div>
+        <div class="stats">Statistiques</div>
+      </div>
+      <ul class="nl-select-player">
+        <li>La Zone de fou</li>
+      </ul>
     </div>
-    <div class="logged-container" *ngIf="isLoggedIn()">
-        <div class="lc-header">
-            <div class="username">
-                {{getUserName() | async}}
-            </div>
-        </div>
-        <div class="stats">
-            <div class="number-games">
-                <div class="number">1</div>
-                <div class="text">Parties</div>
-            </div>
-            <div class="wins">
-                <div class="number">1</div>
-                <div class="text">Victoires</div>
-            </div>
-            <div class="losses">
-                <div class="number">1</div>
-                <div class="text">Défaites</div>
-            </div>
-            <div class="ration">
-                <div class="number">1</div>
-                <div class="text">Ratio</div>
-            </div>
-        </div>
-        <app-player-search></app-player-search>
+    <div class="login-with-google-btn" (click)="oAuthLogin()">
+      <img class="google-logo" src="assets/icons/Google__G__Logo.svg" alt="" />
+      <div class="login-with-google-btn-text">Continue with Google</div>
     </div>
+  </div>
+  <div class="logged-container" *ngIf="isLoggedIn()">
+    <div class="lc-header">
+      <div class="username">
+        {{ getUserName() | async }}
+      </div>
+    </div>
+    <div class="stats">
+      <div class="number-games">
+        <div class="number">1</div>
+        <div class="text">Parties</div>
+      </div>
+      <div class="wins">
+        <div class="number">1</div>
+        <div class="text">Victoires</div>
+      </div>
+      <div class="losses">
+        <div class="number">1</div>
+        <div class="text">Défaites</div>
+      </div>
+      <div class="ration">
+        <div class="number">1</div>
+        <div class="text">Ratio</div>
+      </div>
+    </div>
+    <app-player-search class="search-component"></app-player-search>
+  </div>
 </div>

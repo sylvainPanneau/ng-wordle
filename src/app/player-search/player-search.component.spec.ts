@@ -8,9 +8,8 @@ describe('PlayerSearchComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PlayerSearchComponent ]
-    })
-    .compileComponents();
+      declarations: [PlayerSearchComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(PlayerSearchComponent);
     component = fixture.componentInstance;

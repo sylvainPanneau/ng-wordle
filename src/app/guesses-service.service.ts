@@ -7,32 +7,29 @@ import { CORRECT, PRESENT, INCORRECT, UNKNOWN } from './colors';
 import { SolutionServiceService } from './solution-service.service';
 const WORD_LENGTH = 5;
 
-
 @Injectable({
-
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GuessesServiceService {
-
-  constructor(private solutionService: SolutionServiceService) { }
+  constructor(private solutionService: SolutionServiceService) {}
 
   getGuess(id: number): Observable<Guess> {
     const guess = of(GUESSES[id]);
     return guess;
   }
 
-  setTryToSubmit(wordId: number){
+  setTryToSubmit(wordId: number) {
     const guessToSubmit = of(GUESSES[wordId]);
-    guessToSubmit.subscribe(item => {
+    guessToSubmit.subscribe((item) => {
       item.triedToBeSubmitted = true;
     });
     return guessToSubmit;
   }
 
-  getCanShake(): Observable<{[key: number]: boolean}> {
-    let canShake: {[key: number]: boolean} = {};
-    this.getGuesses().subscribe(item => {
-      item.forEach(guess => {
+  getCanShake(): Observable<{ [key: number]: boolean }> {
+    let canShake: { [key: number]: boolean } = {};
+    this.getGuesses().subscribe((item) => {
+      item.forEach((guess) => {
         canShake[guess.id] = guess.canShake;
       });
     });
@@ -43,26 +40,25 @@ export class GuessesServiceService {
     const guessToShake = of(GUESSES[wordId]);
     let shakeValue: boolean = false;
     let guess!: Guess;
-    let wordStr: string = "";
-    this.getGuess(wordId).subscribe(item => {
+    let wordStr: string = '';
+    this.getGuess(wordId).subscribe((item) => {
       guess = item;
-      item.word.forEach(letter => {
+      item.word.forEach((letter) => {
         wordStr += letter.letter;
       });
     });
-    if (!guess.triedToBeSubmitted){
-      guessToShake.subscribe(item => {
+    if (!guess.triedToBeSubmitted) {
+      guessToShake.subscribe((item) => {
         item.canShake = false;
       });
       return guessToShake;
-    }    
-    if(wordStr.length !== WORD_LENGTH) {
-      shakeValue = false;
     }
-    else if(wordStr.length === WORD_LENGTH) {
+    if (wordStr.length !== WORD_LENGTH) {
+      shakeValue = false;
+    } else if (wordStr.length === WORD_LENGTH) {
       shakeValue = true;
     }
-    guessToShake.subscribe(item => {
+    guessToShake.subscribe((item) => {
       item.canShake = shakeValue;
     });
     return guessToShake;
@@ -70,12 +66,12 @@ export class GuessesServiceService {
 
   getCurrentGuess(): Observable<Guess> {
     // return first guess that has not been submitted
-    const currentGuess = of(GUESSES.find(item => !item.submitted)!);
+    const currentGuess = of(GUESSES.find((item) => !item.submitted)!);
     return currentGuess;
   }
 
   getCurrentGuessId(): number {
-    return GUESSES.find(item => !item.submitted)!.id;
+    return GUESSES.find((item) => !item.submitted)!.id;
   }
 
   getLastSubmittedGuess(): Observable<Guess> {
@@ -85,17 +81,17 @@ export class GuessesServiceService {
 
   getAllSubmittedGuesses(): Observable<Guess[]> {
     let allGuessesSubmitted: Guess[] = [];
-    this.getGuesses().subscribe(item => {
-      allGuessesSubmitted = item.filter(item => item.submitted);
+    this.getGuesses().subscribe((item) => {
+      allGuessesSubmitted = item.filter((item) => item.submitted);
     });
     return of(allGuessesSubmitted);
   }
 
   getAllSubmittedLetters(): Observable<Letter[]> {
     let result: Letter[] = [];
-    this.getAllSubmittedGuesses().subscribe(item => {
-      item.forEach(guess => {
-        guess.word.forEach(letter => {
+    this.getAllSubmittedGuesses().subscribe((item) => {
+      item.forEach((guess) => {
+        guess.word.forEach((letter) => {
           result.push(letter);
         });
       });
@@ -105,7 +101,7 @@ export class GuessesServiceService {
 
   setGuess(id: number, guess: string): Observable<Guess> {
     const guessToSet = of(GUESSES[id]);
-    guessToSet.subscribe(item => {
+    guessToSet.subscribe((item) => {
       for (let i = 0; i < guess.length; i++) {
         item.word.push({
           id: i,
@@ -114,27 +110,26 @@ export class GuessesServiceService {
           correct: false,
           present: false,
           incorrect: false,
-          unknown: false
+          unknown: false,
         });
       }
-    }
-    );
+    });
     return guessToSet;
   }
 
   allGuessesSubmitted(): Observable<boolean> {
-    const allSubmitted = of(GUESSES.every(item => item.submitted));
+    const allSubmitted = of(GUESSES.every((item) => item.submitted));
     return allSubmitted;
   }
 
   isCurrentGuessFull(): boolean {
-    const currentGuess = GUESSES.find(item => !item.submitted)!;
+    const currentGuess = GUESSES.find((item) => !item.submitted)!;
     return currentGuess.word.length === WORD_LENGTH;
   }
 
   isCurrentGuessEmpty(): boolean {
-    const currentGuess = GUESSES.find(item => !item.submitted)!;
-    console.log("empty ? : ", currentGuess.word.length === 0);
+    const currentGuess = GUESSES.find((item) => !item.submitted)!;
+    console.log('empty ? : ', currentGuess.word.length === 0);
     return currentGuess.word.length === 0;
   }
 
@@ -144,7 +139,7 @@ export class GuessesServiceService {
 
   addLetter(id: number, letter: string): Observable<Guess> {
     const guessToAdd = of(GUESSES[id]);
-    guessToAdd.subscribe(item => {
+    guessToAdd.subscribe((item) => {
       if (item.word.length + 1 <= WORD_LENGTH) {
         item.word.push({
           id: item.word.length,
@@ -156,15 +151,14 @@ export class GuessesServiceService {
           unknown: true,
         });
       }
-    }
-    );
+    });
     console.log(GUESSES);
     return guessToAdd;
   }
 
   deleteLetter(id: number): Observable<Guess> {
     const guessToDelete = of(GUESSES[id]);
-    guessToDelete.subscribe(item => {
+    guessToDelete.subscribe((item) => {
       item.word = item.word.slice(0, -1);
     });
     return guessToDelete;
@@ -172,27 +166,26 @@ export class GuessesServiceService {
 
   submitGuess(id: number): Observable<Guess> {
     const guessToSubmit = of(GUESSES[id]);
-    guessToSubmit.subscribe(item => {
+    guessToSubmit.subscribe((item) => {
       item.submitted = true;
-    }
-    );
+    });
     return guessToSubmit;
   }
 
   updateColor(id: number): Observable<Guess> {
     const guessToUpdate = of(GUESSES[id]);
-    guessToUpdate.subscribe(item => {
+    guessToUpdate.subscribe((item) => {
       const solution = this.solutionService.getSolution();
-      console.log("solution : ", solution);
+      console.log('solution : ', solution);
       for (let i = 0; i < item.word.length; i++) {
         if (item.word[i].letter === solution[i]) {
-          console.log("letter ", item.word[i].letter, " is correct");
+          console.log('letter ', item.word[i].letter, ' is correct');
           item.word[i].color = CORRECT;
         } else if (solution.includes(item.word[i].letter)) {
-          console.log("letter ", item.word[i].letter, " is present");
+          console.log('letter ', item.word[i].letter, ' is present');
           item.word[i].color = PRESENT;
         } else {
-          console.log("letter ", item.word[i].letter, " is incorrect");
+          console.log('letter ', item.word[i].letter, ' is incorrect');
           item.word[i].color = INCORRECT;
         }
       }
@@ -207,20 +200,18 @@ export class GuessesServiceService {
 
   clearGuess(id: number): Observable<Guess> {
     const guessToClear = of(GUESSES[id]);
-    guessToClear.subscribe(item => {
+    guessToClear.subscribe((item) => {
       item.word = [];
-    }
-    );
+    });
     return guessToClear;
   }
 
-  resetGame(): void{
-    GUESSES.forEach(item => {
+  resetGame(): void {
+    GUESSES.forEach((item) => {
       item.submitted = false;
       item.canShake = false;
       item.triedToBeSubmitted = false;
       item.word = [];
     });
   }
-
 }

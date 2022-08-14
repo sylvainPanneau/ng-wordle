@@ -1,21 +1,19 @@
 import { Injectable } from '@angular/core';
-import FR_WORDS from "../../data/fr_words.json";
-import EN_WORDS from "../../data/en_words.json";
+import FR_WORDS from '../../data/fr_words.json';
+import EN_WORDS from '../../data/en_words.json';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GameDbServiceService {
-
   private language: string = 'fr';
 
-  constructor() { }
+  constructor() {}
 
   setLanguage(language: string): void {
-    if(language === 'fr' || language === 'en') {
+    if (language === 'fr' || language === 'en') {
       this.language = language;
-    }
-    else this.language = 'fr';
+    } else this.language = 'fr';
   }
 
   getLanguage(): string {
@@ -23,9 +21,8 @@ export class GameDbServiceService {
   }
 
   getGameDb(): string[] {
-    if(this.language === 'fr') {
+    if (this.language === 'fr') {
       return FR_WORDS;
-    }
-    else return EN_WORDS;
+    } else return EN_WORDS;
   }
 }
