@@ -13,6 +13,10 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ProgressSpinnerComponent } from './progress-spinner/progress-spinner.component';
+import { HttpClientModule } from '@angular/common/http';
+import { OAuthModule } from 'angular-oauth2-oidc';
+import { AccountComponent } from './account/account.component';
+import { PlayerSearchComponent } from './player-search/player-search.component';
 
 @NgModule({
   declarations: [
@@ -20,8 +24,12 @@ import { ProgressSpinnerComponent } from './progress-spinner/progress-spinner.co
     BoardComponent,
     EndGameComponent,
     ProgressSpinnerComponent,
+    AccountComponent,
+    PlayerSearchComponent,
   ],
   imports: [
+    HttpClientModule,
+    OAuthModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

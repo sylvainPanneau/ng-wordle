@@ -1,0 +1,193 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    width: calc(5.5em * 5);
+    height: 50%;
+    background-color: #1d1d20;
+    border-radius: 8px;
+}
+
+.not-logged-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 100%;
+}
+
+.nl-blurred {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    filter: blur(0.8em);
+}
+
+.nl-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+
+    .correct-letter {
+        border: 1px solid #3eaa42;
+        border-radius: 5px;
+        background-color: #3eaa42;
+    }
+
+    .present-letter {
+        border: 1px solid #cd8729;
+        border-radius: 5px;
+        background-color: #cd8729;
+    }
+
+    .username {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.1rem;
+    }
+}
+
+.nl-header>.username>div,
+.nl-header>.stats {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.nl-select-player {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #474748;
+    background-color: #3eaa421f;
+    width: 80%;
+    padding: 0.5rem;
+    border-radius: 8px;
+    list-style: none;
+
+    li {
+        font-size: 1.5rem;
+        color: #a9a9a9;
+        font-weight: bold;
+    }
+}
+
+
+.login-with-google-btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0.7em;
+    background-color: #fcfcfc;
+    border-radius: 2px;
+    box-shadow: -7px 7px 6px 2px rgb(0 0 0 / 75%);
+    cursor: pointer;
+    transition: all 400ms ease 0s;
+    border: 1px solid white;
+    padding: 0.8em;
+    z-index: 1;
+}
+
+.login-with-google-btn-text {
+    color: #757575;
+    font-family: Roboto;
+    user-select: none;
+}
+
+.google-logo {
+    user-select: none;
+}
+
+.logged-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 100%;
+
+    .lc-header{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        border: 1px solid white;
+
+        .username{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            font-size: 2em;
+        }
+    }
+
+    .stats {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        border: 1px solid white;
+        gap: 0.5em;
+        flex-wrap: wrap;
+
+        div {
+            flex: 40%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #0e0e0f;
+            padding: 0.5em;
+
+            .number {
+                font-size: 2em;
+                font-weight: bold;
+                color: #3eaa42;
+            }
+
+            .text {
+                font-size: 1em;
+            }
+        }
+    }
+}
+
+// media queries
+@media (max-width: 425px) {
+    .main-container {
+        width: 90%;
+        height: 90%;
+    }
+
+    .nl-header>.username>div,
+    .nl-header>.stats {
+        font-size: 1rem;
+        font-weight: bold;
+    }
+}
+
+@media (min-width: 426px) and (max-width: 768px) {
+    .main-container {
+        width: 50%;
+        height: 50%;
+    }
+}

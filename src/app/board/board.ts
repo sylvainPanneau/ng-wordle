@@ -8,6 +8,7 @@ import { SolutionServiceService } from '../solution-service.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { GameDbServiceService } from '../game-db-service.service';
 import { trigger, style, state, transition } from '@angular/animations';
+import { OAuthLoginServiceService } from '../oauth-login-service.service';
 
 @Component({
   selector: 'app-board',
@@ -29,6 +30,9 @@ import { trigger, style, state, transition } from '@angular/animations';
   ],
 })
 export class BoardComponent implements OnInit {
+
+  userName: string = "";
+  loginClicked: boolean = false;
 
   LINE_IDS = [0, 1, 2, 3, 4, 5];
   isLoading: boolean = false;
@@ -111,7 +115,7 @@ export class BoardComponent implements OnInit {
   }
 
   changeLanguage(language: string): void {
-    if(this.gameDBService.getLanguage() == language) return;
+    if (this.gameDBService.getLanguage() == language) return;
     this.gameDBService.setLanguage(language);
     this.Data = this.gameDBService.getGameDb();
     this.isLoading = true;
@@ -246,11 +250,11 @@ export class BoardComponent implements OnInit {
 
   // method to check if we are on the current letter (blue borders)
   isActive(wordId: number, index: number): boolean {
-    if(this.gameOver || this.won) return false;
+    if (this.gameOver || this.won) return false;
     let res = false;
-    try{
+    try {
       const word: Word = this.getWord(wordId);
-      if(word.length === index && this.guessService.getCurrentGuessId() === wordId) res = true;
+      if (word.length === index && this.guessService.getCurrentGuessId() === wordId) res = true;
     } catch (e) {
       res = false;
     }
@@ -378,6 +382,10 @@ export class BoardComponent implements OnInit {
   onKeyUp(event: KeyboardEvent) {
     this.selectedLetter = event.key;
     this.addLetterCurrentGuess();
+  }
+
+  toggleLogin(): void {
+    this.loginClicked = !this.loginClicked;
   }
 
 }
